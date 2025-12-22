@@ -1,12 +1,13 @@
 [
   {
-    "title": "Thinking, Fast and Slow",
-    "author": "Daniel Kahneman",
-    "date": "2024-03"
-  },
-  {
-    "title": "The Power Broker",
-    "author": "Robert Caro",
-    "date": "2024-04"
+    "title": "Book / Paper Title",
+    "author": "Author Name",
+    "date": "2025-01-18",
+    "status": "finished",
+    "rating": 4,
+    "type": "book",
+    "link": "https://example.com",
+    "tags": ["finance", "microstructure"],
+    "notes": "1–2 sentence takeaway"
   }
 ]
