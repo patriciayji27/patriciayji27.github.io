@@ -15,8 +15,7 @@
       --line: rgba(15, 42, 68, 0.18);
       --bg: #ffffff;
 
-      /* Timeline geometry */
-      --rail-x: 0.85rem;   /* x-position of vertical line */
+      --rail-x: 0.85rem;  
       --dot-size: 0.85rem; /* dot diameter */
     }
 
@@ -44,13 +43,11 @@
       color: var(--blue-900);
     }
 
-    /* Timeline container */
     .timeline {
       position: relative;
-      padding-left: 2.75rem; /* space for rail + dot */
+      padding-left: 2.75rem; 
     }
 
-    /* Vertical line */
     .timeline::before {
       content: "";
       position: absolute;
@@ -61,22 +58,20 @@
       background: var(--line);
     }
 
-    /* Each item anchors its dot */
     .item {
       position: relative;
       padding-bottom: 2.25rem;
     }
 
-    /* Dot centered ON the line */
     .dot {
       position: absolute;
       left: var(--rail-x);
-      top: 0.35em;                 /* aligns with first text line (date) */
+      top: 0.35em;   
       width: var(--dot-size);
       height: var(--dot-size);
       border-radius: 50%;
       background: var(--blue-700);
-      transform: translateX(-50%); /* center the dot on the rail */
+      transform: translateX(-50%); 
     }
 
     .date {
@@ -136,13 +131,12 @@
       }
       if (dateStr.length === 7) {
         const [y, m] = dateStr.split("-");
-        return `01-${m}-${y}`; // default day if only month is provided
+        return `01-${m}-${y}`; 
       }
-      return dateStr; // fallback if something unexpected
+      return dateStr;
     }
 
     function parseDateForSort(dateStr) {
-      // Sort-friendly parse; handles "YYYY-MM" by assuming day 01
       if (!dateStr) return -Infinity;
       const normalized = (dateStr.length === 7) ? (dateStr + "-01") : dateStr;
       const t = Date.parse(normalized);
@@ -152,7 +146,6 @@
     fetch("books.json")
       .then(r => r.json())
       .then(items => {
-        // Sort newest first
         items.sort((a, b) => parseDateForSort(b.date) - parseDateForSort(a.date));
 
         const root = document.getElementById("timeline");
