@@ -75,5 +75,49 @@
   "tags": ["market cycle", "mirror of thoughts"],
   "notes": "Short takeaway."
   }
+  ,
+  {
+  "title": "Adaptive Markets: Financial Evolution at the Speed of Thought",
+  "author": "Andrew Lo",
+  "date": "2025-03-19",
+  "status": "reading",
+  "type": "book",
+  "link": "https://example.com",
+  "tags": ["evolution biology", "gene"],
+  "notes": "Short takeaway."
+  }
+  ,
+  {
+  "title": "20 for Twenty",
+  "author": "AQR",
+  "date": "2025-02-09",
+  "status": "reading",
+  "type": "book",
+  "link": "https://example.com",
+  "tags": ["market cycle", "mirror of thoughts"],
+  "notes": "Short takeaway."
+  }
+  ,
+  {
+  "title": "Le Petit Prince",
+  "author": "Antoine de Saint-Exupéry",
+  "date": "2023-03-22",
+  "status": "reading",
+  "type": "book",
+  "link": "https://example.com",
+  "tags": ["french", "a2"],
+  "notes": "Short takeaway."
+  }
+  ,
+  {
+  "title": "The Stranger",
+  "author": "Albert Camus",
+  "date": "2023-01-02",
+  "status": "reading",
+  "type": "book",
+  "link": "https://example.com",
+  "tags": ["market cycle", "mirror of thoughts"],
+  "notes": "Short takeaway."
+  }
 
 ]
