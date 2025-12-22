@@ -5,29 +5,110 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Reading</title>
   <style>
-    body { font-family: serif; max-width: 700px; margin: 3rem auto; padding: 0 1rem; line-height: 1.6; }
-    h1 { margin: 0 0 1.5rem 0; font-size: 2.2rem; }
-    a { color: inherit; }
-    ul { list-style: none; padding: 0; margin: 0; }
-    li { margin: 0 0 1.25rem 0; }
-    .title { font-weight: 600; }
-    .meta { color: #555; }
+    body { font-family: ui-serif, Georgia, serif; max-width: 780px; margin: 3rem auto; padding: 0 1rem; line-height: 1.6; }
     nav { margin-bottom: 2rem; }
+    a { color: inherit; }
+    h1 { margin: 0 0 1.5rem 0; font-size: 2.2rem; }
+
+    /* Timeline */
+    .timeline { position: relative; margin: 2rem 0; padding-left: 1.75rem; }
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 0.55rem;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: rgba(0,0,0,0.12);
+    }
+
+    .item { position: relative; padding: 0 0 1.6rem 0; }
+    .dot {
+      position: absolute;
+      left: 0.18rem;
+      top: 0.25rem;
+      width: 0.75rem;
+      height: 0.75rem;
+      border-radius: 999px;
+      background: #111;
+    }
+
+    .date { font-size: 0.95rem; color: rgba(0,0,0,0.6); margin-bottom: 0.2rem; }
+    .title { font-weight: 650; }
+    .meta { color: rgba(0,0,0,0.7); }
+    .tags { margin-top: 0.35rem; }
+    .tag {
+      display: inline-block;
+      font-size: 0.85rem;
+      padding: 0.1rem 0.5rem;
+      border: 1px solid rgba(0,0,0,0.18);
+      border-radius: 999px;
+      margin-right: 0.35rem;
+      margin-bottom: 0.35rem;
+    }
+    .notes { margin-top: 0.35rem; color: rgba(0,0,0,0.8); }
   </style>
 </head>
 <body>
   <nav><a href="/">Home</a></nav>
   <h1>Reading</h1>
 
-  <ul>
-    <li>
-      <div class="title">Thinking, Fast and Slow</div>
-      <div class="meta">Daniel Kahneman — 2024-03</div>
-    </li>
-    <li>
-      <div class="title">Market Microstructure Theory</div>
-      <div class="meta">Maureen O'Hara — 2024-01</div>
-    </li>
-  </ul>
+  <div class="timeline" id="timeline"></div>
+
+  <script>
+    function esc(s) {
+      return String(s ?? "").replace(/[&<>"']/g, m => ({
+        "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"
+      }[m]));
+    }
+
+    fetch("books.json")
+      .then(r => r.json())
+      .then(items => {
+        // Sort newest first if date is present
+        items.sort((a,b) => (b.date || "").localeCompare(a.date || ""));
+        const root = document.getElementById("timeline");
+
+        for (const b of items) {
+          const title = esc(b.title);
+          const author = esc(b.author);
+          const date = esc(b.date);
+          const status = esc(b.status);
+          const type = esc(b.type);
+          const notes = esc(b.notes);
+          const link = b.link ? esc(b.link) : "";
+          const tags = Array.isArray(b.tags) ? b.tags : [];
+
+          const titleHtml = link
+            ? `<a href="${link}" target="_blank" rel="noreferrer">${title}</a>`
+            : title;
+
+          const tagsHtml = tags.length
+            ? `<div class="tags">${tags.map(t => `<span class="tag">${esc(t)}</span>`).join("")}</div>`
+            : "";
+
+          const notesHtml = notes ? `<div class="notes">${notes}</div>` : "";
+
+          const metaBits = [author, type, status].filter(Boolean).join(" · ");
+
+          const el = document.createElement("div");
+          el.className = "item";
+          el.innerHTML = `
+            <span class="dot"></span>
+            <div class="date">${date}</div>
+            <div class="title">${titleHtml}</div>
+            <div class="meta">${metaBits}</div>
+            ${tagsHtml}
+            ${notesHtml}
+          `;
+          root.appendChild(el);
+        }
+      })
+      .catch(err => {
+        document.getElementById("timeline").innerText = "Could not load books.json";
+        console.error(err);
+      });
+  </script>
 </body>
 </html>
+
