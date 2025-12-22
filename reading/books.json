@@ -22,6 +22,17 @@
   }
  ,
   {
+    "title": "Language AND The Brain",
+    "author": "Jonathan Brennan",
+    "date": "2024-10-15",
+    "status": "finished",
+    "type": "textbook",
+    "link": "https://example.com",
+    "tags": ["neurolinguistics"],
+    "notes": "1–2 sentence takeaway"
+  }
+ ,
+  {
     "title": "The Art And Science of Technical Analysis",
     "author": "Adam Grimes",
     "date": "2025-12-20",
