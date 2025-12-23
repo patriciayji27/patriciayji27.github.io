@@ -39,7 +39,7 @@
     "status": "finished",
     "type": "textbook",
     "link": "https://acesin.letras.ufrj.br/wp-content/uploads/2023/08/language_and_the_brain.pdf",
-    "tags": ["neurolinguistics"],
+    "tags": ["neurolinguistics", "semantic", "syntatic"],
     "notes": "Human language processing is implemented as an online, predictive computation in which left-hemisphere fronto-temporal circuits incrementally map continuous sensory input onto discrete linguistic representations, with distinct neural populations encoding phonological structure, lexical activation, semantic composition, and syntactic dependency formation on separable time courses. The hard problem—and the book’s core claim—is that meaningful progress only comes from committing to explicit linking hypotheses that tie formal linguistic theory to measurable neural dynamics, rather than treating brain activation as an explanation in itself."
   }
  ,
@@ -71,9 +71,9 @@
   "date": "2025-08-11",
   "status": "reading",
   "type": "book",
-  "link": "https://example.com",
+  "link": "https://economicprinciples.org/downloads/How-Countries-Go-Broke.pdf",
   "tags": ["financial history", "market cycle"],
-  "notes": "Short takeaway."
+  "notes": ""
   }
   ,
   {
@@ -83,8 +83,8 @@
   "status": "reading",
   "type": "book",
   "link": "https://example.com",
-  "tags": ["statistics", "bet"],
-  "notes": "Short takeaway."
+  "tags": ["bet", "tail risk", "deductive vs inductive reasoning"],
+  "notes": ""
   }
   ,
   {
@@ -93,9 +93,9 @@
   "date": "2025-07-14",
   "status": "reading",
   "type": "book",
-  "link": "https://example.com",
-  "tags": ["statistics", "bet"],
-  "notes": "Short takeaway."
+  "link": "",
+  "tags": ["second-level thinking", "cycles", "risk"],
+  "notes": "superior investing comes not from forecasts but from disciplined second-level thinking—understanding cycles, psychology, and risk better than others when it matters most. The deepest edge is not being right on average, but avoiding being wrong at the extremes by acting countercyclically with humility and patience."
   }
   ,
   {
@@ -104,9 +104,9 @@
   "date": "2025-07-01",
   "status": "reading",
   "type": "book",
-  "link": "https://example.com",
-  "tags": ["statistics", "bet"],
-  "notes": "Short takeaway."
+  "link": "https://mentoringgroup.com/wp-content/uploads/2023/05/the-inner-game-of-tennis.pdf",
+  "tags": ["mastery", "ego & fear", "self control"],
+  "notes": "peak performance comes from quieting the ego-driven, judgmental mind so the body’s natural intelligence can operate without interference. Mastery is less about trying harder and more about removing internal obstacles—fear, overcontrol, and self-criticism—that prevent what we already know how to do from emerging"
   }
   ,
   {
