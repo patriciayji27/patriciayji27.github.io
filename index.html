@@ -220,7 +220,6 @@
       max-width: 62ch;
     }
 
-    /* NEW: vertical axis / experience rail */
     .axis{
       margin-top: 10px;
       padding-top: 8px;
@@ -246,7 +245,7 @@
       font-size: 14px;
       line-height: 1.5;
     }
-    /* the vertical rail */
+
     .axisItem::before{
       content:"";
       position:absolute;
@@ -258,7 +257,7 @@
       border-radius: 2px;
       opacity: 0.9;
     }
-    /* the dot */
+
     .axisItem::after{
       content:"";
       position:absolute;
@@ -270,23 +269,22 @@
       background: linear-gradient(180deg, var(--accent), var(--accent2));
       box-shadow: 0 0 0 5px rgba(45,212,191,0.10);
     }
-    /* stop the rail after the last item */
+
     .axisItem:last-child::before{ bottom: 6px; }
     .axisItem:first-child::before{ top: 6px; }
-    /* make details/summary behave cleanly */
+
     .axisDetails{
       width: 100%;
     }
     .axisSummary{
-      list-style: none;              /* removes default triangle in some browsers */
+      list-style: none;  
       cursor: pointer;
       padding: 2px 0;
     }
     .axisSummary::-webkit-details-marker{
-      display: none;                 /* removes default marker in Chrome/Safari */
+      display: none;   
     }
 
-/* layout: label on top, subline under (like your current look) */
     .axisSummary .axisLabel{
       display: block;
     }
@@ -322,7 +320,7 @@
       background: rgba(45,212,191,0.06);
       border-color: rgba(45,212,191,0.22);
     }
-    /* side panel */
+
     .mini{
       display:flex;
       flex-direction:column;
@@ -346,13 +344,12 @@
       font-size: 13px;
     }
 
-    /* sections */
     .section{
       margin-top: 18px;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 16px;
-      align-items: start; /* ← prevents vertical stretching */
+      align-items: start;
     }
     @media (max-width: 860px){
       .section{ grid-template-columns: 1fr; }
@@ -429,7 +426,7 @@
 <body>
   <div class="wrap">
     <div class="topbar">
-      <div class="brand"><span class="dot"></span> patricia ji</div>
+      <div class="brand"><span class="dot"></span> patriciayji</div>
       <div class="navlinks">
         <a class="pill" href="/reading/">reading</a>
         <a class="pill" href="https://github.com/polygreenj" target="_blank" rel="noreferrer">github main</a>
@@ -442,7 +439,7 @@
           <h1 class="headline">hey i’m patricia</h1>
           <p class="subhead">statistics & cognitive science @ uchicago</p>
 
-          <!-- Removed buttons. Replaced with vertical axis -->
+
           <div class="axis">
             <div class="axisTitle"></div>
             <ul class="axisList">
