@@ -37,6 +37,18 @@
     text-decoration: underline;
     text-underline-offset: 3px;
   }
+  .axisLabel{
+    font-weight: 750;
+    color: #2dd4bf;
+  }
+
+  .axisSub{
+    margin-top: 4px;
+    font-size: 13px;
+    line-height: 1.35;
+    color: rgba(236, 244, 255, 0.60); 
+}
+
 </style>
 
 <head>
@@ -340,11 +352,30 @@
           <div class="axis">
             <div class="axisTitle"></div>
             <ul class="axisList">
-              <li class="axisItem">xxxx</li>
-              <li class="axisItem">yyyy</li>
-              <li class="axisItem">zzzz</li>
-              <li class="axisItem">aaaa</li>
-              <li class="axisItem">bbbb</li>
+              <li class="axisItem">
+                <span class="axisLabel">xxxx</span>
+                <div class="axisSub">subline describing xxxx</div>
+              </li>
+              
+              <li class="axisItem">
+                <span class="axisLabel">yyyy</span>
+                <div class="axisSub">subline describing yyyy</div>
+              </li>
+              
+              <li class="axisItem">
+                <span class="axisLabel">zzzz</span>
+                <div class="axisSub">subline describing zzzz</div>
+              </li>
+              
+              <li class="axisItem">
+                <span class="axisLabel">aaaa</span>
+                <div class="axisSub">subline describing aaaa</div>
+              </li>
+              
+              <li class="axisItem">
+                <span class="axisLabel">bbbb</span>
+                <div class="axisSub">subline describing bbbb</div>
+              </li>
             </ul>
           </div>
         </div>
