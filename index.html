@@ -12,11 +12,16 @@
       --panel: rgba(255,255,255,0.06);
       --panel2: rgba(255,255,255,0.08);
       --stroke: rgba(255,255,255,0.12);
-      --text: rgba(255,255,255,0.92);
-      --muted: rgba(255,255,255,0.70);
-      --muted2: rgba(255,255,255,0.56);
-      --accent: #7ab6ff;
-      --accent2:#4aa3ff;
+
+      /* softer off-white with a slight cool tint */
+      --text: rgba(236, 244, 255, 0.92);
+      --muted: rgba(200, 220, 255, 0.74);
+      --muted2: rgba(190, 210, 255, 0.58);
+
+      /* purple + turquoise accents */
+      --accent: #8b5cf6;   /* purple */
+      --accent2:#2dd4bf;   /* turquoise */
+
       --shadow: 0 20px 60px rgba(0,0,0,0.45);
       --radius: 18px;
       --max: 980px;
@@ -29,9 +34,9 @@
       color: var(--text);
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
       background:
-        radial-gradient(1200px 600px at 12% 8%, rgba(74,163,255,0.22), transparent 55%),
-        radial-gradient(900px 600px at 75% 15%, rgba(122,182,255,0.16), transparent 55%),
-        radial-gradient(1000px 700px at 40% 90%, rgba(74,163,255,0.10), transparent 60%),
+        radial-gradient(1200px 600px at 12% 8%, rgba(45,212,191,0.18), transparent 55%),
+        radial-gradient(900px 600px at 75% 15%, rgba(139,92,246,0.18), transparent 55%),
+        radial-gradient(1000px 700px at 40% 90%, rgba(45,212,191,0.10), transparent 60%),
         linear-gradient(180deg, #06101a 0%, #071320 60%, #06101a 100%);
       overflow-x: hidden;
     }
@@ -63,7 +68,7 @@
     .dot{
       width: 10px; height: 10px; border-radius: 50%;
       background: linear-gradient(180deg, var(--accent), var(--accent2));
-      box-shadow: 0 0 0 6px rgba(122,182,255,0.12);
+      box-shadow: 0 0 0 6px rgba(139,92,246,0.10);
     }
 
     .navlinks{
@@ -111,36 +116,66 @@
       margin: 0 0 10px 0;
     }
     .subhead{
-      margin: 0 0 18px 0;
+      margin: 0 0 14px 0;
       color: var(--muted);
       font-size: 16px;
       line-height: 1.6;
       max-width: 62ch;
     }
-    .ctarow{
-      display:flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 12px;
+
+    /* NEW: vertical axis / experience rail */
+    .axis{
+      margin-top: 10px;
+      padding-top: 8px;
     }
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap: 10px;
-      padding: 11px 14px;
-      border-radius: 12px;
-      border: 1px solid var(--stroke);
-      background: rgba(255,255,255,0.06);
-      color: var(--text);
-      font-weight: 600;
+    .axisTitle{
+      color: var(--muted2);
+      font-size: 12px;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
     }
-    .btn.primary{
-      background: linear-gradient(180deg, rgba(122,182,255,0.28), rgba(74,163,255,0.16));
-      border-color: rgba(122,182,255,0.35);
+    .axisList{
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 12px;
     }
-    .btn:hover{ text-decoration:none; background: rgba(255,255,255,0.09); }
-    .btn.primary:hover{ background: linear-gradient(180deg, rgba(122,182,255,0.34), rgba(74,163,255,0.18)); }
+    .axisItem{
+      position: relative;
+      padding-left: 22px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    /* the vertical rail */
+    .axisItem::before{
+      content:"";
+      position:absolute;
+      left: 8px;
+      top: -14px;
+      bottom: -14px;
+      width: 2px;
+      background: linear-gradient(180deg, rgba(139,92,246,0.55), rgba(45,212,191,0.50));
+      border-radius: 2px;
+      opacity: 0.9;
+    }
+    /* the dot */
+    .axisItem::after{
+      content:"";
+      position:absolute;
+      left: 3px;
+      top: 4px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: linear-gradient(180deg, var(--accent), var(--accent2));
+      box-shadow: 0 0 0 5px rgba(45,212,191,0.10);
+    }
+    /* stop the rail after the last item */
+    .axisItem:last-child::before{ bottom: 6px; }
+    .axisItem:first-child::before{ top: 6px; }
 
     /* side panel */
     .mini{
@@ -160,9 +195,9 @@
     .tag{
       padding: 7px 10px;
       border-radius: 999px;
-      border: 1px solid rgba(122,182,255,0.22);
-      background: rgba(122,182,255,0.08);
-      color: rgba(215,235,255,0.92);
+      border: 1px solid rgba(139,92,246,0.22);
+      background: rgba(45,212,191,0.08);
+      color: rgba(225,245,255,0.92);
       font-size: 13px;
     }
 
@@ -203,6 +238,35 @@
       line-height: 1.5;
     }
 
+    /* NEW: nicer social links */
+    .socialRow{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .socialLink{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 9px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(139,92,246,0.22);
+      background: rgba(255,255,255,0.04);
+      color: var(--muted);
+      text-decoration: none;
+    }
+    .socialLink:hover{
+      background: rgba(255,255,255,0.08);
+      color: var(--text);
+      text-decoration: none;
+    }
+    .socialDot{
+      width: 9px; height: 9px; border-radius: 50%;
+      background: linear-gradient(180deg, var(--accent), var(--accent2));
+      box-shadow: 0 0 0 5px rgba(139,92,246,0.10);
+    }
+
     /* footer */
     .footer{
       margin-top: 28px;
@@ -230,16 +294,18 @@
       <div class="card">
         <div class="inner">
           <h1 class="headline">hey i’m patricia</h1>
-          <p class="subhead">
-            statistics & cognitive science at uchicago
-      
-          </p>
+          <p class="subhead">statistics & cognitive science at uchicago</p>
 
-          <div class="ctarow">
-            <a class="btn primary" href="/reading/">→ reading timeline</a>
-            <a class="btn" href="https://github.com/polygreenj" target="_blank" rel="noreferrer">↗ projects</a>
-            <!-- Optional: add email link -->
-            <!-- <a class="btn" href="mailto:you@example.com">Email</a> -->
+          <!-- Removed buttons. Replaced with vertical axis -->
+          <div class="axis">
+            <div class="axisTitle">axis</div>
+            <ul class="axisList">
+              <li class="axisItem">xxxx</li>
+              <li class="axisItem">yyyy</li>
+              <li class="axisItem">zzzz</li>
+              <li class="axisItem">aaaa</li>
+              <li class="axisItem">bbbb</li>
+            </ul>
           </div>
         </div>
       </div>
@@ -283,10 +349,24 @@
               <div class="title">what i care about</div>
               <div class="meta">market structure, incentives, measurement, and making messy things legible</div>
             </div>
+
             <div class="item">
-              <div class="title">find me</div>
-              <div class="meta">patriciayji@insta</div>
+              <div class="title">connect</div>
+              <div class="meta">
+                <div class="socialRow">
+                  <!-- TODO: replace href with your real handles -->
+                  <a class="socialLink" href="https://instagram.com/YOUR_HANDLE" target="_blank" rel="noreferrer">
+                    <span class="socialDot"></span>
+                    connect me on <span style="color: var(--text);">instagram</span>
+                  </a>
+                  <a class="socialLink" href="https://www.linkedin.com/in/YOUR_HANDLE" target="_blank" rel="noreferrer">
+                    <span class="socialDot"></span>
+                    connect me on <span style="color: var(--text);">linkedin</span>
+                  </a>
+                </div>
+              </div>
             </div>
+
           </div>
         </div>
       </div>
