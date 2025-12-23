@@ -117,7 +117,7 @@
   "type": "book",
   "link": "https://example.com",
   "tags": ["market cycle", "mirror of thoughts"],
-  "notes": "Short takeaway."
+  "notes": ""
   }
   ,
   {
@@ -127,8 +127,8 @@
   "status": "reading",
   "type": "book",
   "link": "https://example.com",
-  "tags": ["evolution biology", "gene"],
-  "notes": "Short takeaway."
+  "tags": ["evolutionary forces", "AMH vs EMH", "irrationality"],
+  "notes": ""
   }
   ,
   {
@@ -138,8 +138,8 @@
   "status": "finished",
   "type": "white paper",
   "link": "https://example.com",
-  "tags": ["market cycle", "mirror of thoughts"],
-  "notes": "Short takeaway."
+  "tags": ["factor", "momemtum", "value invseting alpha"],
+  "notes": ""
   }
   ,
   {
@@ -150,7 +150,7 @@
   "type": "audio book",
   "link": "https://example.com",
   "tags": ["french", "a2"],
-  "notes": "Short takeaway."
+  "notes": "french pronunciation"
   }
   ,
   {
@@ -160,8 +160,8 @@
   "status": "finished",
   "type": "book",
   "link": "https://example.com",
-  "tags": ["market cycle", "mirror of thoughts"],
-  "notes": "Short takeaway."
+  "tags": ["senioritis :D"],
+  "notes": "i finished all my college apps yay"
   }
   ,
   {
@@ -171,7 +171,7 @@
   "status": "finished",
   "type": "book",
   "link": "https://ccpgc.usmf.md/sites/default/files/inline-files/Nonviolent%20Communication_%20A%20Language%20of%20Life_%20Life-Changing%20Tools%20for%20Healthy%20Relationships%20%28%20PDFDrive%20%29.pdf",
-  "tags": ["market cycle", "mirror of thoughts"],
+  "tags": ["OFNR", "empathetic listening"],
   "notes": ""
   }
   ,
@@ -182,8 +182,8 @@
   "status": "finished",
   "type": "book",
   "link": "https://example.com",
-  "tags": ["market cycle", "mirror of thoughts"],
-  "notes": "Short takeaway."
+  "tags": ["undirected natural selection", "cumulative selection", "mutation"],
+  "notes": ""
   }
   ,
   {
@@ -193,8 +193,8 @@
   "status": "finished",
   "type": "book",
   "link": "https://example.com",
-  "tags": ["market cycle", "mirror of thoughts"],
-  "notes": "Short takeaway."
+  "tags": ["(non)REM", "chronic diseases", "memory", "mood"],
+  "notes": ""
   }
   ,
   {
@@ -204,8 +204,8 @@
   "status": "finished",
   "type": "book",
   "link": "https://api.pageplace.de/preview/DT0400.9780191093067_A30390560/preview-9780191093067_A30390560.pdf",
-  "tags": ["market cycle", "mirror of thoughts"],
-  "notes": "Short takeaway."
+  "tags": ["inclusive fitness", "altruistic", "selection"],
+  "notes": ""
   }
 
 ]
