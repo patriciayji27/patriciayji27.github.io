@@ -6,10 +6,21 @@
     "status": "finished",
     "type": "book",
     "link": "https://example.com",
-    "tags": ["finance", "dynamics"],
-    "notes": "1–2 sentence takeaway"
+    "tags": ["reflexivity", "super bubble"],
+    "notes": "'reflexivity distinguishes only two functions: the cognitive and the manipulative','the uncertainty associated with reflexivity affects not only the participants but also the social scientists who seek to establish universally valid laws governing human behavior' "
   }
  ,
+  {
+    "title": "Credit Investor’s Handbook (chapter 2-6)",
+    "author": "Michael Gatto",
+    "date": "2025-11-20",
+    "status": "finished",
+    "type": "book",
+    "link": "https://example.com",
+    "tags": ["credit analysis process", "credit cycle"],
+    "notes": "1–2 sentence takeaway"
+  }
+  ,
   {
     "title": "Algorithms to Live By",
     "author": "Brian Christian & Tom Griffiths",
