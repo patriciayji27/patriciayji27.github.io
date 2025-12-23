@@ -7,7 +7,7 @@
     "type": "book",
     "link": "https://fernandonogueiracosta.wordpress.com/wp-content/uploads/2010/02/the-new-paradigm-for-financial-markets-george-soros-2008.pdf",
     "tags": ["reflexivity", "super bubble"],
-    "notes": "'reflexivity distinguishes only two functions: the cognitive and the manipulative','the uncertainty associated with reflexivity affects not only the participants but also the social scientists who seek to establish universally valid laws governing human behavior' "
+    "notes": "Reflexivity distinguishes only two functions: the cognitive and the manipulative; The uncertainty associated with reflexivity affects not only the participants but also the social scientists who seek to establish universally valid laws governing human behavior "
   }
  ,
   {
@@ -16,9 +16,9 @@
     "date": "2025-11-20",
     "status": "finished",
     "type": "book",
-    "link": "https://example.com",
+    "link": "https://books.google.com/books?id=qXbrEAAAQBAJ&printsec=frontcover&source=gbs_book_other_versions_r&cad=2#v=onepage&q&f=false",
     "tags": ["credit analysis process", "credit cycle"],
-    "notes": ""
+    "notes": "Credit availability is highly convex to small macro shocks: marginal tightening in economic conditions causes a disproportionate contraction in lending standards, widening credit spreads, falling secondary prices, and rising defaults, which then feeds back into weaker growth. Excess returns in credit are earned by aligning leverage, risk exposure, and liquidity with the cycle—underwriting aggressively only when spreads overcompensate for default and recovery risk, and retrenching when capital is cheap and underwriting standards deteriorate"
   }
   ,
   {
@@ -27,9 +27,9 @@
     "date": "2025-12-14",
     "status": "reading",
     "type": "book",
-    "link": "https://example.com",
+    "link": "https://www.amazon.com/Algorithms-Live-Computer-Science-Decisions/dp/1627790365",
     "tags": ["sort", "orders", "bayes"],
-    "notes": "1–2 sentence takeaway"
+    "notes": "Let it slide :/"
   }
  ,
   {
