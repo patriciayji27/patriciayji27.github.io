@@ -38,9 +38,9 @@
     "date": "2024-10-15",
     "status": "finished",
     "type": "textbook",
-    "link": "https://example.com",
+    "link": "https://acesin.letras.ufrj.br/wp-content/uploads/2023/08/language_and_the_brain.pdf",
     "tags": ["neurolinguistics"],
-    "notes": "1–2 sentence takeaway"
+    "notes": "Human language processing is implemented as an online, predictive computation in which left-hemisphere fronto-temporal circuits incrementally map continuous sensory input onto discrete linguistic representations, with distinct neural populations encoding phonological structure, lexical activation, semantic composition, and syntactic dependency formation on separable time courses. The hard problem—and the book’s core claim—is that meaningful progress only comes from committing to explicit linking hypotheses that tie formal linguistic theory to measurable neural dynamics, rather than treating brain activation as an explanation in itself."
   }
  ,
   {
@@ -49,20 +49,20 @@
     "date": "2025-12-20",
     "status": "reading (and don't think will ever finish)",
     "type": "book",
-    "link": "https://example.com",
+    "link": "https://www.bestinfo2010.com/0x14/pcmbrokers_(Wiley%20finance%20series)%20Adam%20Grimes-The%20art%20and%20science%20of%20technical%20analysis%20_%20market%20structure,%20price%20action,%20and%20trading%20strategies-J.%20Wiley%20%20&%20%20Sons%20%20(2012).pdf",
     "tags": ["metrics", "candle chart", "trend analysis"],
-    "notes": "1–2 sentence takeaway"
+    "notes": ""
   }
  ,
  {
    "title": "Liar's Poker",
    "author": "Michael Lewis",
    "date": "2025-08-28",
-   "status": "reading",
+   "status": "finished",
    "type": "book",
    "link": "https://example.com",
    "tags": ["trading", "finance"],
-   "notes": "Short takeaway."
+   "notes": ""
   }
   ,
   {
