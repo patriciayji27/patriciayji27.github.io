@@ -273,7 +273,55 @@
     /* stop the rail after the last item */
     .axisItem:last-child::before{ bottom: 6px; }
     .axisItem:first-child::before{ top: 6px; }
+    /* make details/summary behave cleanly */
+    .axisDetails{
+      width: 100%;
+    }
+    .axisSummary{
+      list-style: none;              /* removes default triangle in some browsers */
+      cursor: pointer;
+      padding: 2px 0;
+    }
+    .axisSummary::-webkit-details-marker{
+      display: none;                 /* removes default marker in Chrome/Safari */
+    }
 
+/* layout: label on top, subline under (like your current look) */
+    .axisSummary .axisLabel{
+      display: block;
+    }
+    
+    .axisSummary .axisSub{
+      display: block;
+      margin-top: 4px;
+    }
+
+/* the expandable panel box */
+    .axisPanel{
+      margin-top: 10px;
+      margin-left: 0px;
+      padding: 14px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(139,92,246,0.22);
+      background: rgba(255,255,255,0.04);
+    }
+    
+    .axisPanelTitle{
+      font-weight: 750;
+      color: rgba(236,244,255,0.92);
+      margin-bottom: 6px;
+    }
+    .axisPanelText{
+      color: rgba(236,244,255,0.70);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+/* optional: subtle highlight when open */
+    .axisDetails[open] .axisPanel{
+      background: rgba(45,212,191,0.06);
+      border-color: rgba(45,212,191,0.22);
+    }
     /* side panel */
     .mini{
       display:flex;
@@ -399,28 +447,69 @@
             <div class="axisTitle"></div>
             <ul class="axisList">
               <li class="axisItem">
-                <span class="axisLabel">quant trading</span>
-                <div class="axisSub">incoming summer 2026</div>
+                <details class="axisDetails">
+                  <summary class="axisSummary">
+                    <span class="axisLabel">quant trading</span>
+                    <span class="axisSub">incoming summer 2026</span>
+                  </summary>
+                  
+                  <div class="axisPanel">
+                    <div class="axisPanelTitle">quant trading</div>
+                    <div class="axisPanelText">put details here: what you did, focus areas, metrics, etc.</div>
+                  </div>
+                </details>
               </li>
               
               <li class="axisItem">
-                <span class="axisLabel">fundamentals</span>
-                <div class="axisSub">mobius investments (2025) & misc</div>
+                <details class="axisDetails">
+                  <summary class="axisSummary">
+                    <span class="axisLabel">fundamentals</span>
+                    <span class="axisSub">mobius investments (2025) & misc</span>
+                  </summary>
+                  <div class="axisPanel">
+                    <div class="axisPanelTitle">fundamentals</div>
+                    <div class="axisPanelText">put details here.</div>
+                  </div>
+                </details>
               </li>
               
               <li class="axisItem">
-                <span class="axisLabel">research</span>
-                <div class="axisSub">fnal & bwater challenge</div>
+                <details class="axisDetails">
+                  <summary class="axisSummary">
+                    <span class="axisLabel">research</span>
+                    <span class="axisSub">fnal & bwater challenge</span>
+                  </summary>
+                  
+                  <div class="axisPanel">
+                    <div class="axisPanelTitle">research</div>
+                    <div class="axisPanelText">put details here.</div>
+                  </div>
+                </details>
               </li>
               
               <li class="axisItem">
-                <span class="axisLabel">leadership</span>
-                <div class="axisSub">impact chicago & the derivatives group</div>
+                <details class="axisDetails">
+                  <summary class="axisSummary">
+                    <span class="axisLabel">leadership</span>
+                    <span class="axisSub">impact chicago & the derivatives group</span>
+                  </summary>
+                  <div class="axisPanel">
+                    <div class="axisPanelTitle">leadership</div>
+                    <div class="axisPanelText">put details here.</div>
+                  </div>
+                </details>
               </li>
-              
               <li class="axisItem">
-                <span class="axisLabel">cogsci</span>
-                <div class="axisSub">data cognition lab</div>
+                <details class="axisDetails">
+                  <summary class="axisSummary">
+                    <span class="axisLabel">cogsci</span>
+                    <span class="axisSub">data cognition lab</span>
+                  </summary>
+                  <div class="axisPanel">
+                    <div class="axisPanelTitle">cogsci</div>
+                    <div class="axisPanelText">put details here.</div>
+                  </div>
+                </details>
               </li>
             </ul>
           </div>
