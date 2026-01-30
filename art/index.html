@@ -1,1 +1,447 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Art</title>
+  <style>
+    :root{
+      --bg:#07080c;
+      --panel: rgba(255,255,255,.06);
+      --line: rgba(255,255,255,.12);
+      --text: rgba(245,247,255,.92);
+      --muted: rgba(245,247,255,.62);
+      --glow: rgba(160,210,255,.22);
+      --glow2: rgba(215,160,255,.16);
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font: 15px/1.55 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color:var(--text);
+      background:
+        radial-gradient(900px 700px at 12% -10%, var(--glow), transparent 55%),
+        radial-gradient(900px 650px at 88% 0%, var(--glow2), transparent 55%),
+        radial-gradient(900px 650px at 70% 120%, rgba(140,255,210,.10), transparent 60%),
+        linear-gradient(180deg, #06070b 0%, #070817 40%, #05060a 100%);
+      overflow-x:hidden;
+    }
+
+    .wrap{max-width:1200px; margin:0 auto; padding:26px 18px 72px;}
+    .top{
+      position:sticky; top:0; z-index:50;
+      padding:16px 0 12px;
+      backdrop-filter: blur(12px) saturate(120%);
+      background: linear-gradient(to bottom, rgba(7,8,12,.92), rgba(7,8,12,.55));
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+
+    .head{
+      display:flex; align-items:flex-end; justify-content:space-between; gap:16px;
+      max-width:1200px; margin:0 auto; padding:0 18px;
+    }
+    .title{
+      display:flex; flex-direction:column; gap:6px;
+    }
+    .title h1{
+      margin:0; font-size:34px; letter-spacing:-.5px; font-weight:700;
+    }
+    .title .sub{
+      margin:0; color:var(--muted); font-size:14px;
+    }
+
+    .controls{
+      display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;
+      align-items:center;
+    }
+    .pill, input{
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 10px 12px;
+      outline: none;
+    }
+    input{
+      width:min(420px, 68vw);
+      border-radius: 14px;
+    }
+    input::placeholder{color: rgba(245,247,255,.48)}
+    .pill{
+      cursor:pointer;
+      user-select:none;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+    .pill:hover{transform: translateY(-1px); background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.18)}
+    .pill.active{
+      border-color: rgba(160,210,255,.45);
+      box-shadow: 0 0 0 4px rgba(160,210,255,.10) inset;
+    }
+
+    .metaRow{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+      margin-top:14px;
+    }
+    .stat{
+      color:var(--muted); font-size:13px;
+      padding:8px 10px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+    }
+
+    /* Masonry-like layout without JS libs */
+    .grid{
+      margin-top:18px;
+      columns: 3 320px;
+      column-gap: 14px;
+    }
+    @media (max-width: 980px){ .grid{columns: 2 260px;} }
+    @media (max-width: 640px){ .grid{columns: 1 320px;} }
+
+    .card{
+      break-inside: avoid;
+      margin: 0 0 14px;
+      border-radius: var(--radius);
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      box-shadow: 0 10px 40px rgba(0,0,0,.22);
+      transform: translateZ(0);
+      transition: transform .14s ease, border-color .14s ease, background .14s ease;
+      cursor:pointer;
+      position:relative;
+    }
+    .card:hover{
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,.18);
+      background: rgba(255,255,255,.05);
+    }
+    .card img{
+      width:100%;
+      display:block;
+      height:auto;
+      background: rgba(0,0,0,.25);
+      filter: saturate(1.04) contrast(1.02);
+    }
+    .cap{
+      padding: 10px 12px 12px;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .cap .name{
+      font-weight:650; letter-spacing:.1px;
+      display:flex; justify-content:space-between; gap:10px;
+    }
+    .cap .small{
+      margin-top:4px; color:var(--muted); font-size:13px;
+    }
+    .tags{
+      margin-top:10px;
+      display:flex; flex-wrap:wrap; gap:6px;
+    }
+    .tag{
+      font-size:12px;
+      padding:4px 8px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      color: rgba(245,247,255,.82);
+    }
+
+    /* Modal viewer */
+    .modal{
+      position:fixed; inset:0; z-index:100;
+      display:none;
+      background: rgba(0,0,0,.68);
+      backdrop-filter: blur(12px);
+      padding: 16px;
+    }
+    .modal.open{display:grid; place-items:center;}
+    .viewer{
+      width:min(1200px, 100%);
+      border-radius: 18px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(7,8,12,.72);
+      box-shadow: 0 25px 90px rgba(0,0,0,.6);
+    }
+    .vTop{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      padding:12px 12px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+    }
+    .vTop .left{min-width:0}
+    .vTop .t{font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+    .vTop .s{color:var(--muted); font-size:13px; margin-top:2px}
+    .btns{display:flex; gap:8px; align-items:center}
+    .btn{
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color:var(--text);
+      padding:10px 12px;
+      border-radius: 12px;
+      cursor:pointer;
+    }
+    .btn:hover{background: rgba(255,255,255,.09)}
+    .vMain{
+      display:grid;
+      grid-template-columns: 1.5fr 1fr;
+      min-height: 360px;
+    }
+    .vMain img{
+      width:100%;
+      height:min(78vh, 760px);
+      object-fit: contain;
+      display:block;
+      background: rgba(0,0,0,.25);
+    }
+    .vInfo{
+      padding: 14px 14px 18px;
+      border-left:1px solid rgba(255,255,255,.10);
+    }
+    .vInfo p{margin:10px 0 0; color:var(--muted)}
+    .kv{margin-top:10px; font-size:14px; color: rgba(245,247,255,.88)}
+    .kv span{color:var(--muted)}
+    @media (max-width: 980px){
+      .vMain{grid-template-columns: 1fr;}
+      .vInfo{border-left:none; border-top:1px solid rgba(255,255,255,.10)}
+      .vMain img{height:min(62vh, 560px)}
+    }
+
+    .footer{
+      margin-top:22px;
+      color: var(--muted);
+      font-size:13px;
+      opacity:.9;
+    }
+    .footer a{ text-decoration: underline; text-decoration-color: rgba(160,210,255,.45); }
+    code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;}
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="head">
+      <div class="title">
+        <h1>Art Portfolio</h1>
+        <p class="sub">A living archive. Click a piece to view it large. Use ← → to navigate.</p>
+        <div class="metaRow">
+          <div class="stat" id="statCount">0 works</div>
+          <div class="stat" id="statTag">Tag: All</div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <input id="q" type="search" placeholder="Search: title, year, medium, tag..." />
+        <div id="chips" style="display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end;"></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="grid" id="grid" aria-live="polite"></section>
+
+    <div class="footer">
+      <div>How to add art: put images in <code>art/img/</code> and list them in <code>art/artworks.json</code>.</div>
+    </div>
+  </main>
+
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Artwork viewer">
+    <div class="viewer">
+      <div class="vTop">
+        <div class="left">
+          <div class="t" id="mTitle"></div>
+          <div class="s" id="mSub"></div>
+        </div>
+        <div class="btns">
+          <button class="btn" id="prevBtn" type="button" aria-label="Previous">←</button>
+          <button class="btn" id="nextBtn" type="button" aria-label="Next">→</button>
+          <button class="btn" id="closeBtn" type="button">Close</button>
+        </div>
+      </div>
+      <div class="vMain">
+        <img id="mImg" alt="" />
+        <div class="vInfo">
+          <div class="tags" id="mTags"></div>
+          <div class="kv" id="mKV"></div>
+          <p id="mDesc"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const grid = document.getElementById('grid');
+    const chips = document.getElementById('chips');
+    const q = document.getElementById('q');
+    const statCount = document.getElementById('statCount');
+    const statTag = document.getElementById('statTag');
+
+    const modal = document.getElementById('modal');
+    const mTitle = document.getElementById('mTitle');
+    const mSub = document.getElementById('mSub');
+    const mImg = document.getElementById('mImg');
+    const mTags = document.getElementById('mTags');
+    const mKV = document.getElementById('mKV');
+    const mDesc = document.getElementById('mDesc');
+
+    const closeBtn = document.getElementById('closeBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    let all = [];
+    let filtered = [];
+    let activeTag = 'All';
+    let activeIndex = 0;
+
+    function uniqTags(items){
+      const set = new Set();
+      items.forEach(x => (x.tags || []).forEach(t => set.add(t)));
+      return ['All', ...Array.from(set).sort((a,b)=>a.localeCompare(b))];
+    }
+
+    function renderChips(){
+      const tags = uniqTags(all);
+      chips.innerHTML = '';
+      tags.forEach(tag => {
+        const el = document.createElement('div');
+        el.className = 'pill' + (tag === activeTag ? ' active' : '');
+        el.textContent = tag;
+        el.addEventListener('click', () => {
+          activeTag = tag;
+          [...chips.children].forEach(c => c.classList.remove('active'));
+          el.classList.add('active');
+          statTag.textContent = `Tag: ${activeTag}`;
+          applyFilters();
+        });
+        chips.appendChild(el);
+      });
+      statTag.textContent = `Tag: ${activeTag}`;
+    }
+
+    function matchesQuery(item, query){
+      if(!query) return true;
+      const hay = [
+        item.title, item.year, item.medium, item.dimensions, item.series, item.description,
+        ...(item.tags || [])
+      ].filter(Boolean).join(' ').toLowerCase();
+      return hay.includes(query.toLowerCase());
+    }
+
+    function applyFilters(){
+      const query = q.value.trim();
+      filtered = all.filter(item => {
+        const tagOk = (activeTag === 'All') || (item.tags || []).includes(activeTag);
+        const qOk = matchesQuery(item, query);
+        return tagOk && qOk;
+      });
+      renderGrid();
+    }
+
+    function makeCard(item, index){
+      const el = document.createElement('article');
+      el.className = 'card';
+      const sub = [item.year, item.medium].filter(Boolean).join(' • ');
+      el.innerHTML = `
+        <img src="${item.file}" alt="${item.alt || item.title || 'Artwork'}" loading="lazy" />
+        <div class="cap">
+          <div class="name">
+            <div>${item.title || 'Untitled'}</div>
+            <div style="color:var(--muted); font-weight:600;">${item.year || ''}</div>
+          </div>
+          <div class="small">${sub}</div>
+          <div class="tags">${(item.tags||[]).slice(0,5).map(t => `<span class="tag">${t}</span>`).join('')}</div>
+        </div>
+      `;
+      el.addEventListener('click', () => openModal(index));
+      return el;
+    }
+
+    function renderGrid(){
+      grid.innerHTML = '';
+      statCount.textContent = `${filtered.length} work${filtered.length===1?'':'s'}`;
+      if(!filtered.length){
+        const empty = document.createElement('div');
+        empty.style.color = 'var(--muted)';
+        empty.style.border = '1px solid rgba(255,255,255,.10)';
+        empty.style.background = 'rgba(255,255,255,.03)';
+        empty.style.borderRadius = '16px';
+        empty.style.padding = '14px';
+        empty.textContent = 'No matches. Try a different tag or search.';
+        grid.appendChild(empty);
+        return;
+      }
+      filtered.forEach((item, i) => grid.appendChild(makeCard(item, i)));
+    }
+
+    function openModal(i){
+      activeIndex = i;
+      const item = filtered[activeIndex];
+
+      mTitle.textContent = item.title || 'Untitled';
+      mSub.textContent = [item.year, item.medium].filter(Boolean).join(' • ');
+      mImg.src = item.file;
+      mImg.alt = item.alt || item.title || 'Artwork';
+
+      mTags.innerHTML = (item.tags || []).map(t => `<span class="tag">${t}</span>`).join('');
+      const kv = [];
+      if(item.dimensions) kv.push(`<span>Dimensions:</span> ${item.dimensions}`);
+      if(item.series) kv.push(`<span>Series:</span> ${item.series}`);
+      if(item.location) kv.push(`<span>Location:</span> ${item.location}`);
+      mKV.innerHTML = kv.join('<br>') || '<span>Tip:</span> Add dimensions/series/location fields in artworks.json';
+
+      mDesc.textContent = item.description || '';
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(){
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function step(delta){
+      if(!filtered.length) return;
+      activeIndex = (activeIndex + delta + filtered.length) % filtered.length;
+      openModal(activeIndex);
+    }
+
+    closeBtn.addEventListener('click', closeModal);
+    prevBtn.addEventListener('click', () => step(-1));
+    nextBtn.addEventListener('click', () => step(1));
+    modal.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
+
+    window.addEventListener('keydown', (e) => {
+      if(!modal.classList.contains('open')) return;
+      if(e.key === 'Escape') closeModal();
+      if(e.key === 'ArrowLeft') step(-1);
+      if(e.key === 'ArrowRight') step(1);
+    });
+
+    q.addEventListener('input', applyFilters);
+
+    async function init(){
+      const res = await fetch('./artworks.json', {cache:'no-store'});
+      const data = await res.json();
+
+      // Expect file paths like "img/001.jpg"
+      all = data.map(x => ({
+        ...x,
+        file: x.file || ''
+      })).filter(x => x.file);
+
+      renderChips();
+      filtered = all.slice();
+      renderGrid();
+    }
+
+    init().catch(() => {
+      grid.innerHTML =
+        `<div style="color:var(--muted); border:1px solid rgba(255,255,255,.10); background:rgba(255,255,255,.03); padding:14px; border-radius:16px;">
+          Missing <code>artworks.json</code>. Create <code>art/artworks.json</code> and add images under <code>art/img/</code>.
+        </div>`;
+    });
+  </script>
+</body>
+</html>
 
