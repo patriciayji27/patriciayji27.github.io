@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Untitled #1",
+    "year": "2024",
+    "medium": "Acrylic on canvas",
+    "dimensions": "18 × 24 in",
+    "file": "img/001.jpg",
+    "tags": ["abstract", "acrylic"],
+    "description": "Short note about the idea or process."
+  },
+  {
+    "title": "Portrait Study",
+    "year": "2023",
+    "medium": "Graphite on paper",
+    "dimensions": "9 × 12 in",
+    "file": "img/002.jpg",
+    "tags": ["portrait", "drawing"],
+    "description": "Anything you want viewers to notice."
+  }
+]
