@@ -217,6 +217,10 @@
     .subhead.subhead--secondary {
       color: rgba(180, 200, 215, 0.75) !important;
     }
+    .project-label {
+      color: var(--accent); /* or whatever accent color your theme uses */
+      font-weight: 500;
+    }
 
 
     .axis{
@@ -495,8 +499,14 @@
                   </summary>
                   <div class="axisPanel">
                     <div class="axisPanelTitle">projects</div>
-                    <div class="axisPanelText">data cognition lab: examines how uncertainty visualizations and financial headlines affect bias and sensitivity in risky asset choices, accounting for individual risk tolerance</div>
-                    <div class="axisPanelText">fermilab: develops a unified neural network–based adaptive control framework in accelerator resonance control and real-time neurostimulation to enable responsive control of physical and neural systems</div>
+                    <div class="axisPanelText">
+                      <span class="project-label">• data cognition lab:</span>
+                      examines how uncertainty visualizations and financial headlines affect bias and sensitivity in risky asset choices, accounting for individual risk tolerance
+                    </div>
+                    <div class="axisPanelText">
+                      <span class="project-label">• fermilab:</span>
+                      develops a unified neural network–based adaptive control framework in accelerator resonance control and real-time neurostimulation to enable responsive control of physical and neural systems
+                    </div>
                   </div>
                 </details>
               </li>
