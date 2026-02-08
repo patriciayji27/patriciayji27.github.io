@@ -118,7 +118,7 @@
 
       --shadow: 0 20px 60px rgba(0,0,0,0.45);
       --radius: 18px;
-      --max: 980px;
+      --max: 1100px;
     }
 
     * { box-sizing: border-box; }
@@ -185,10 +185,30 @@
       color: var(--muted);
     }
     .pill:hover{ background: rgba(255,255,255,0.09); color: var(--text); text-decoration:none; }
+    
+    .heroHead{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 14px;
+    }
+    
+    .heroLinks{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content:flex-end;
+      margin-top: 6px; /* small nudge to align with headline */
+    }
+    
+    .heroLinks .pill{
+      padding: 9px 11px;
+    }
+
 
     .hero{
       display:grid;
-      grid-template-columns: 1.25fr 0.75fr;
+      grid-template-columns: 1.6fr 0.4fr;
       gap: 16px;
       margin-top: 14px;
     }
@@ -454,7 +474,14 @@
     <div class="hero">
       <div class="card">
         <div class="inner">
-          <h1 class="headline">hey i’m patricia</h1>
+          <div class="heroHead">
+            <h1 class="headline">hey i’m patricia</h1>
+            <div class="heroLinks">
+              <a class="pill" href="https://github.com/patriciayji27" target="_blank" rel="noreferrer">github main</a>
+              <a class="pill" href="https://github.com/patriciayji27" target="_blank" rel="noreferrer">art portfolio</a>
+            </div>
+          </div>
+
           <p class="subhead">statistics & cognitive science @ uchicago</p>
           <p class="subhead subhead--secondary">interested in the intersection of agentic ai and human decision-making elicitation and its application to the financial market</p>
           <div class="axis">
@@ -536,7 +563,7 @@
         <div class="block">
           <div class="kicker">currently</div>
           <div class="bigline">
-            blogging om substack, training for 10 mile, and (trying to) do more art
+            blogging on substack, training for 10 mile, and (trying to) do more art
           </div>
           <div class="tags">
             <span class="tag">liszt la campanella</span>
