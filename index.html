@@ -208,7 +208,7 @@
 
     .hero{
       display:grid;
-      grid-template-columns: 1.6fr 0.4fr;
+      grid-template-columns: 1.25fr 0.75fr;
       gap: 16px;
       margin-top: 14px;
     }
@@ -384,8 +384,17 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 16px;
-      align-items: start;
+      align-items: stretch;
     }
+
+    .section > .card{
+      height: 100%;
+    }
+    
+    .section > .card .inner{
+      height: 100%;
+    }
+    
     @media (max-width: 860px){
       .section{ grid-template-columns: 1fr; }
     }
@@ -463,13 +472,6 @@
 
 <body>
   <div class="wrap">
-    <div class="topbar">
-      <div class="brand"><span class="dot"></span> patriciayji</div>
-      <div class="navlinks">
-        <a class="pill" href="https://github.com/patriciayji27" target="_blank" rel="noreferrer">github main</a>
-        <a class="pill" href="https://github.com/patriciayji27" target="_blank" rel="noreferrer">art portfolio</a>
-      </div>
-    </div>
 
     <div class="hero">
       <div class="card">
