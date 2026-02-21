@@ -1,106 +1,10 @@
 <!doctype html>
 <html lang="en">
-  <style>
-
-  .meta{
-    color: rgba(210, 225, 245, 0.85);
-    line-height: 1.6;
-  }
-
-  .link-latte{
-    color: #2dd4bf; 
-    font-weight: 500;
-    text-decoration: none;
-  }
-  .link-latte:hover{
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
-
-  .link-paint{
-    color: #a78bfa; 
-    font-weight: 500;
-    text-decoration: none;
-  }
-  .link-paint:hover{
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
-
-  .link-outdoor{
-    color: #93c5fd;
-    font-weight: 500;
-    text-decoration: none;
-  }
-  .link-outdoor:hover{
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
-  .axisLabel{
-    font-weight: 750;
-    color: #2dd4bf;
-  }
-
-  .axisSub{
-    margin-top: 4px;
-    font-size: 13px;
-    line-height: 1.35;
-    color: rgba(236, 244, 255, 0.60); 
-  }
-
-  .miscGrid{
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 24px;
-    margin-top: 8px;
-    align-items: start;
-  }
-  @media (max-width: 520px){
-    .miscGrid{
-      grid-template-columns: 1fr;
-    }
-  }
-  .miscTitle{
-    font-size: 14px;
-    font-weight: 650;
-    color: var(--text);
-    margin-bottom: 14px;
-  }
-  .miscList{
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  .miscList li{
-    position: relative;
-    padding-left: 20px;
-    margin-bottom: 12px;
-    color: rgba(230,240,255,0.75);
-    font-size: 14px;
-  }
-  .miscList li::before{
-    content: "›";
-    position: absolute;
-    left: 0;
-    color: rgba(45,212,191,0.95);
-  }
-  .miscList a{
-    color: rgba(180,210,255,0.95);
-    text-decoration: none;
-  }
-  .miscList a:hover{
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
-
-</style>
-
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Patricia Ji</title>
   <meta name="description" content="Patricia Ji — stats/cog sci. Reading, projects, and notes." />
-
 
   <style>
     :root{
@@ -113,8 +17,8 @@
       --muted: rgba(200, 220, 255, 0.74);
       --muted2: rgba(190, 210, 255, 0.58);
 
-      --accent: #8b5cf6;   
-      --accent2:#2dd4bf;  
+      --accent: #8b5cf6;
+      --accent2:#2dd4bf;
 
       --shadow: 0 20px 60px rgba(0,0,0,0.45);
       --radius: 18px;
@@ -134,10 +38,32 @@
       margin:0;
       color: var(--text);
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      min-height: 100vh; 
+      min-height: 100vh;
       overflow-x: hidden;
+      position: relative;
     }
 
+    /* ── floating bubbles ── */
+    .bubbles{
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .bubble{
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0;
+      animation: floatBubble linear infinite;
+    }
+    @keyframes floatBubble{
+      0%{   transform: translateY(100vh) scale(0.4); opacity: 0; }
+      10%{  opacity: 1; }
+      90%{  opacity: 1; }
+      100%{ transform: translateY(-10vh) scale(1);   opacity: 0; }
+    }
 
     a{ color: inherit; text-decoration: none; }
     a:hover{ text-decoration: underline; text-underline-offset: 3px; }
@@ -146,34 +72,97 @@
       max-width: var(--max);
       margin: 0 auto;
       padding: 36px 18px 64px;
+      position: relative;
+      z-index: 1;
     }
 
-    .topbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 14px;
-      margin-bottom: 22px;
+    /* ── sidebar ── */
+    .sidebar{
+      position: fixed;
+      top: 50%;
+      right: clamp(10px, 2.2vw, 30px);
+      transform: translateY(-50%);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
-    .brand{
-      display:flex;
-      align-items:center;
+    .sidebar-track{
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 6px 0;
+    }
+    /* vertical connecting line */
+    .sidebar-track::before{
+      content: "";
+      position: absolute;
+      top: 18px;
+      bottom: 18px;
+      left: 50%;
+      width: 1.5px;
+      transform: translateX(-50%);
+      background: linear-gradient(180deg, rgba(139,92,246,0.30), rgba(45,212,191,0.30));
+      border-radius: 2px;
+    }
+    .sidebar-link{
+      display: flex;
+      align-items: center;
       gap: 10px;
-      font-weight: 650;
-      letter-spacing: 0.2px;
+      padding: 14px 0;
+      text-decoration: none;
+      position: relative;
+      cursor: pointer;
     }
-    .dot{
-      width: 10px; height: 10px; border-radius: 50%;
+    .sidebar-link:hover{ text-decoration: none; }
+    .sidebar-dot{
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.12);
+      border: 1.5px solid rgba(139,92,246,0.35);
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 2;
+    }
+    .sidebar-link:hover .sidebar-dot,
+    .sidebar-link.active .sidebar-dot{
       background: linear-gradient(180deg, var(--accent), var(--accent2));
-      box-shadow: 0 0 0 6px rgba(139,92,246,0.10);
+      border-color: transparent;
+      box-shadow: 0 0 10px rgba(45,212,191,0.4);
+      transform: scale(1.35);
+    }
+    .sidebar-label{
+      position: absolute;
+      right: 24px;
+      white-space: nowrap;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted2);
+      opacity: 0;
+      transform: translateX(5px);
+      transition: all 0.25s ease;
+      pointer-events: none;
+      background: rgba(7,19,32,0.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      padding: 5px 11px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .sidebar-link:hover .sidebar-label{
+      opacity: 1;
+      transform: translateX(0);
+      color: var(--text);
+    }
+    @media (max-width: 960px){
+      .sidebar{ display: none; }
     }
 
-    .navlinks{
-      display:flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content:flex-end;
-    }
+    /* ── pill ── */
     .pill{
       display:inline-flex;
       align-items:center;
@@ -185,35 +174,19 @@
       color: var(--muted);
     }
     .pill:hover{ background: rgba(255,255,255,0.09); color: var(--text); text-decoration:none; }
-    
+
+    /* ── hero ── */
     .heroHead{
       display:flex;
       align-items:flex-start;
       justify-content:space-between;
       gap: 14px;
     }
-    
-    .heroLinks{
-      display:flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content:flex-end;
-      margin-top: 6px; /* small nudge to align with headline */
-    }
-    
-    .heroLinks .pill{
-      padding: 9px 11px;
-    }
-
-
     .hero{
       display:grid;
-      grid-template-columns: 1.25fr 0.75fr;
+      grid-template-columns: 1fr;
       gap: 16px;
       margin-top: 14px;
-    }
-    @media (max-width: 860px){
-      .hero{ grid-template-columns: 1fr; }
     }
 
     .card{
@@ -242,11 +215,11 @@
       color: rgba(180, 200, 215, 0.75) !important;
     }
     .project-label {
-      color: var(--accent); /* or whatever accent color your theme uses */
+      color: var(--accent);
       font-weight: 500;
     }
 
-
+    /* ── axis / timeline ── */
     .axis{
       margin-top: 10px;
       padding-top: 8px;
@@ -272,7 +245,6 @@
       font-size: 14px;
       line-height: 1.5;
     }
-
     .axisItem::before{
       content:"";
       position:absolute;
@@ -284,7 +256,6 @@
       border-radius: 2px;
       opacity: 0.9;
     }
-
     .axisItem::after{
       content:"";
       position:absolute;
@@ -296,41 +267,31 @@
       background: linear-gradient(180deg, var(--accent), var(--accent2));
       box-shadow: 0 0 0 5px rgba(45,212,191,0.10);
     }
-
     .axisItem:last-child::before{ bottom: 6px; }
     .axisItem:first-child::before{ top: 6px; }
 
-    .axisDetails{
-      width: 100%;
-    }
+    .axisDetails{ width: 100%; }
     .axisSummary{
-      list-style: none;  
+      list-style: none;
       cursor: pointer;
       padding: 2px 0;
     }
-    .axisSummary::-webkit-details-marker{
-      display: none;   
-    }
-
-    .axisSummary .axisLabel{
-      display: block;
-    }
-    
+    .axisSummary::-webkit-details-marker{ display: none; }
+    .axisSummary .axisLabel{ display: block; font-weight: 750; color: #2dd4bf; }
     .axisSummary .axisSub{
       display: block;
       margin-top: 4px;
+      font-size: 13px;
+      line-height: 1.35;
+      color: rgba(236, 244, 255, 0.60);
     }
-
-/* the expandable panel box */
     .axisPanel{
       margin-top: 10px;
-      margin-left: 0px;
-      padding: 14px 14px;
+      padding: 14px;
       border-radius: 14px;
       border: 1px solid rgba(139,92,246,0.22);
       background: rgba(255,255,255,0.04);
     }
-    
     .axisPanelTitle{
       font-weight: 750;
       color: rgba(236,244,255,0.92);
@@ -341,95 +302,115 @@
       font-size: 14px;
       line-height: 1.45;
     }
-
-/* optional: subtle highlight when open */
     .axisDetails[open] .axisPanel{
       background: rgba(45,212,191,0.06);
       border-color: rgba(45,212,191,0.22);
     }
 
-    .mini{
-      display:flex;
-      flex-direction:column;
-      gap: 12px;
-      height: 100%;          /* ADD */
-    }
-    .mini .block{
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--stroke);
-      border-radius: 16px;
-      padding: 16px;
-      flex: 1;               /* ADD */
-    }
-    .mini .block{
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--stroke);
-      border-radius: 16px;
-      padding: 16px;
-    }
-    .kicker{ color: var(--muted2); font-size: 12px; letter-spacing: 0.10em; text-transform: uppercase; }
-    .bigline{ margin-top: 8px; font-size: 16px; line-height: 1.6; color: var(--muted); }
-    .tags{ display:flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
-    .tag{
-      padding: 7px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(139,92,246,0.22);
-      background: rgba(45,212,191,0.08);
-      color: rgba(225,245,255,0.92);
-      font-size: 13px;
-    }
-
-    .section{
+    /* ── bottom blocks ── */
+    .bottomBlocks{
       margin-top: 18px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+      display: flex;
+      flex-direction: column;
       gap: 16px;
-      align-items: stretch;
     }
 
-    .section > .card{
-      height: 100%;
+    /* ── section kicker ── */
+    .sectionKicker{
+      color: var(--muted2);
+      font-size: 12px;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
     }
-    
-    .section > .card .inner{
-      height: 100%;
+
+    /* ── projects list ── */
+    .projectList{
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 0;
     }
-    
-    @media (max-width: 860px){
-      .section{ grid-template-columns: 1fr; }
+    .projectItem{
+      position: relative;
+      padding: 14px 16px 14px 38px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      transition: background 0.2s ease;
     }
-    .h2{
-      margin: 0 0 10px 0;
-      font-size: 16px;
-      letter-spacing: 0.2px;
+    .projectItem:last-child{ border-bottom: none; }
+    .projectItem:hover{
+      background: rgba(45,212,191,0.04);
     }
-    .list{
-      display:flex;
-      flex-direction:column;
-      gap: 10px;
-      margin-top: 10px;
+    /* diamond marker */
+    .projectItem::before{
+      content: "";
+      position: absolute;
+      left: 13px;
+      top: 50%;
+      width: 8px;
+      height: 8px;
+      transform: translateY(-50%) rotate(45deg);
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-radius: 2px;
+      opacity: 0.8;
+      transition: all 0.25s ease;
     }
-    .item{
+    .projectItem:hover::before{
+      opacity: 1;
+      transform: translateY(-50%) rotate(45deg) scale(1.25);
+      box-shadow: 0 0 10px rgba(45,212,191,0.35);
+    }
+    .projectItem a{
+      color: rgba(200,225,255,0.92);
+      font-size: 15.5px;
+      font-weight: 500;
+      text-decoration: none;
+      letter-spacing: 0.15px;
+    }
+    .projectItem a:hover{
+      color: #2dd4bf;
+      text-decoration: none;
+    }
+
+    /* ── misc about ── */
+    .miscAbout{
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    /* ── quick links ── */
+    .quickLinkItem{
+      display: block;
       background: rgba(255,255,255,0.05);
       border: 1px solid var(--stroke);
       border-radius: 14px;
-      padding: 14px 14px;
+      padding: 14px 16px;
+      transition: background 0.15s;
     }
-    .item .title{
+    .quickLinkItem + .quickLinkItem{ margin-top: 10px; }
+    .quickLinkItem:hover{
+      background: rgba(255,255,255,0.09);
+      text-decoration: none;
+    }
+    .quickLinkItem .qlTitle{
       font-weight: 650;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
+      color: var(--text);
     }
-    .item .meta{
+    .quickLinkItem .qlMeta{
       color: var(--muted);
       font-size: 14px;
-      line-height: 1.5;
+      line-height: 1.4;
     }
 
+    /* ── social row ── */
     .socialRow{
       display:flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-top: 8px;
+      margin-top: 4px;
     }
     .socialLink{
       display:inline-flex;
@@ -453,6 +434,7 @@
       box-shadow: 0 0 0 5px rgba(139,92,246,0.10);
     }
 
+    /* ── footer ── */
     .footer{
       margin-top: 28px;
       padding: 14px 16px;
@@ -466,22 +448,42 @@
       gap: 10px;
       flex-wrap: wrap;
     }
-
   </style>
 </head>
 
 <body>
+  <div class="bubbles" id="bubbles"></div>
+
+  <!-- ── sidebar nav ── -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-track">
+      <a class="sidebar-link" href="#projects">
+        <span class="sidebar-dot"></span>
+        <span class="sidebar-label">projects</span>
+      </a>
+      <a class="sidebar-link" href="#misc">
+        <span class="sidebar-dot"></span>
+        <span class="sidebar-label">misc</span>
+      </a>
+      <a class="sidebar-link" href="#quicklinks">
+        <span class="sidebar-dot"></span>
+        <span class="sidebar-label">quick links</span>
+      </a>
+      <a class="sidebar-link" href="#connect">
+        <span class="sidebar-dot"></span>
+        <span class="sidebar-label">connect</span>
+      </a>
+    </div>
+  </nav>
+
   <div class="wrap">
 
+    <!-- ═══════════ HERO ═══════════ -->
     <div class="hero">
       <div class="card">
         <div class="inner">
           <div class="heroHead">
-            <h1 class="headline">hey i’m patricia</h1>
-            <div class="heroLinks">
-              <a class="pill" href="https://github.com/patriciayji27" target="_blank" rel="noreferrer">github main</a>
-              <a class="pill" href="https://github.com/patriciayji27" target="_blank" rel="noreferrer">art portfolio</a>
-            </div>
+            <h1 class="headline">hey i'm patricia</h1>
           </div>
 
           <p class="subhead">statistics & cognitive science @ uchicago</p>
@@ -493,20 +495,21 @@
                 <details class="axisDetails">
                   <summary class="axisSummary">
                     <span class="axisLabel">quant trading</span>
-                    <span class="axisSub">incoming qt intern @ imc; incoming trading bootcamp @ peak6 </span>
+                    <span class="axisSub">incoming qt intern @ imc; incoming trading bootcamp @ peak6</span>
                   </summary>
-                  
                   <div class="axisPanel">
                     <div class="axisPanelTitle">programs and discovery days</div>
                     <div class="axisPanelText">• sig women discovery</div>
                     <div class="axisPanelText">• imc math madness, women in trading & technology</div>
                     <div class="axisPanelText">• two sigma new seekers</div>
-                    <div class="axisPanelText">• citadel fixed income & macro central bank challenge </div>
-                    <div class="axisPanelText">• ms future traders (equity derivatives) </div>
+                    <div class="axisPanelText">• citadel fixed income & macro central bank challenge</div>
+                    <div class="axisPanelText">• ms future traders (equity derivatives)</div>
+                    <div class="axisPanelText">• traders@mit competition</div>
+                    <div class="axisPanelText">• uchicago trading competition</div>
                   </div>
                 </details>
               </li>
-              
+
               <li class="axisItem">
                 <details class="axisDetails">
                   <summary class="axisSummary">
@@ -517,11 +520,11 @@
                     <div class="axisPanelTitle">recognition</div>
                     <div class="axisPanelText">• third place @ uchicago stock pitch competition on caesars entertainment</div>
                     <div class="axisPanelText">• global top 100 @ bridgewater forecasting the future 2025</div>
+                    <div class="axisPanelText">• bridgewater x metaculus 2026</div>
                   </div>
                 </details>
               </li>
-              
-              
+
               <li class="axisItem">
                 <details class="axisDetails">
                   <summary class="axisSummary">
@@ -532,16 +535,17 @@
                     <div class="axisPanelTitle">previously</div>
                     <div class="axisPanelText">• quant finance cohort leader @ the derivatives group</div>
                     <div class="axisPanelText">• consultant @ campus catalyst</div>
-                    <div class="axisPanelText">• campus ambassador @ girls who invest </div>
-                    <div class="axisPanelText">• intramural volleyball </div>
+                    <div class="axisPanelText">• campus ambassador @ girls who invest</div>
+                    <div class="axisPanelText">• intramural & pickup volleyball</div>
                   </div>
                 </details>
               </li>
+
               <li class="axisItem">
                 <details class="axisDetails">
                   <summary class="axisSummary">
                     <span class="axisLabel">research</span>
-                    <span class="axisSub">current @ fermilab </span>
+                    <span class="axisSub">current @ fermilab</span>
                   </summary>
                   <div class="axisPanel">
                     <div class="axisPanelTitle">projects</div>
@@ -560,110 +564,156 @@
           </div>
         </div>
       </div>
-
-      <div class="mini">
-        <div class="block">
-          <div class="kicker">currently</div>
-          <div class="bigline">
-            blogging on substack, training for 10 mile, and (trying to) do more art
-          </div>
-          <div class="tags">
-            <span class="tag">liszt la campanella</span>
-            <span class="tag">microstructure</span>
-            <span class="tag">chi half</span>
-            <span class="tag">mcdonald's aces</span>
-            <span class="tag">fifa26</span>
-            
-          </div>
-        </div>
-
-        <div class="block">
-          <div class="kicker">quick links</div>
-          <div class="list">
-            <a class="item" href="/reading/">
-              <div class="title">reading log</div>
-              <div class="meta">recent good stuff</div>
-            </a>
-            <a class="item" href="https://onthemarket.substack.com/" target="_blank" rel="noreferrer">
-              <div class="title">on the market</div>
-              <div class="meta">more recent good stuff</div>
-            </a>
-          </div>
-        </div>
-      </div>
     </div>
 
-    <div class="section">
-      <div class="card">
-        <div class="inner">
-          <div class="list">
-            <div class="item">
-              <div class="title">i love</div>
-              <div class="meta">
-                exploring coffee shops across the city, painting in different mediums, spending time outdoors (skiing/running) and golden retrievers
-              </div>
-            </div>
+    <!-- ═══════════ BOTTOM BLOCKS ═══════════ -->
+    <div class="bottomBlocks">
 
-            <div class="item">
-              <div class="title">connect me on</div>
-              <div class="meta">
-                <div class="socialRow">
-                  <a class="socialLink" href="https://instagram.com/patriciayji" target="_blank" rel="noreferrer">
-                    <span class="socialDot"></span>
-                    <span style="color: var(--text);">instagram</span>
-                  </a>
-                  <a class="socialLink" href="https://www.linkedin.com/in/patriciayji" target="_blank" rel="noreferrer">
-                    <span class="socialDot"></span>
-                    <span style="color: var(--text);">linkedin</span>
-                  </a>
-                  <a class="socialLink" href="https://vsco.co/pyji08/gallery" target="_blank" rel="noreferrer">
-                    <span class="socialDot"></span>
-                    <span style="color: var(--text);">vsco</span>
-                  </a>
-                </div>
-              </div>
-            </div>
+      <!-- 1. PROJECTS -->
+      <div class="card" id="projects">
+        <div class="inner">
+          <div class="sectionKicker">PROJECTS</div>
+          <ul class="projectList">
+            <li class="projectItem"><a href="https://github.com/patriciayji27" target="_blank" rel="noreferrer">s&p 500 price prediction</a></li>
+            <li class="projectItem"><a href="https://github.com/patriciayji27" target="_blank" rel="noreferrer">multiple testing and modern inference</a></li>
+            <li class="projectItem"><a href="https://github.com/patriciayji27" target="_blank" rel="noreferrer">trading competitions</a></li>
+            <li class="projectItem"><a href="https://github.com/patriciayji27" target="_blank" rel="noreferrer">market regime identification</a></li>
+            <li class="projectItem"><a href="https://github.com/patriciayji27" target="_blank" rel="noreferrer">smart index</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 2. MISC -->
+      <div class="card" id="misc">
+        <div class="inner">
+          <div class="sectionKicker">MISC</div>
+          <div class="miscAbout">
+            outside of work, i write on substack, follow soccer (blue moon rising), train for the chicago 10-mile, and paint across multiple mediums. i love exploring coffee shops, spending time outdoors (skiing and running), and have a long-standing appreciation for golden retrievers.
           </div>
         </div>
       </div>
 
-      <div class="card">
+      <!-- 3. QUICK LINKS -->
+      <div class="card" id="quicklinks">
         <div class="inner">
-          <div class="h2">misc</div>
-          <div class="miscGrid">
-            <div class="miscCol">
-              <div class="miscTitle">organizations</div>
-              <ul class="miscList">
-                <li><a href="https://www.girlswhoinvest.org/oip" target="_blank" rel="noreferrer">girls who invest</a></li>
-                <li><a href="https://dgqt.rso.uchicago.edu/" target="_blank" rel="noreferrer">the derivatives group</a></li>
-                <li><a href="https://mc.uchicago.edu/about.html" target="_blank" rel="noreferrer">maroon capital</a></li>
-                <li>ai development program</li>
-              </ul>
-            </div>
-            
-            <div class="miscCol">
-              <div class="miscTitle">projects</div>
-              <ul class="miscList">
-                <li><a href="" rel="noreferrer">multiple testing</a></li>
-                <li><a href="https://YOUR_LINK_2" target="_blank" rel="noreferrer">uchicago trading competition</a></li>
-                <li><a href="" target="_blank" rel="noreferrer">traders@mit trading competition (upcoming)</a></li>
-                <li><a href="" target="_blank" rel="noreferrer">risk, uncertainty, and ambiguity</a></li>
-                
-              </ul>
-            </div>
+          <div class="sectionKicker">QUICK LINKS</div>
+          <a class="quickLinkItem" href="/reading/">
+            <div class="qlTitle">reading log</div>
+            <div class="qlMeta">recent good stuff</div>
+          </a>
+          <a class="quickLinkItem" href="https://onthemarket.substack.com/" target="_blank" rel="noreferrer">
+            <div class="qlTitle">on the market</div>
+            <div class="qlMeta">investing ideas and market philosophy</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- 4. CONNECT WITH ME -->
+      <div class="card" id="connect">
+        <div class="inner">
+          <div class="sectionKicker">CONNECT WITH ME</div>
+          <div class="socialRow">
+            <a class="socialLink" href="https://instagram.com/patriciayji" target="_blank" rel="noreferrer">
+              <span class="socialDot"></span>
+              <span style="color: var(--text);">instagram</span>
+            </a>
+            <a class="socialLink" href="https://www.linkedin.com/in/patriciayji" target="_blank" rel="noreferrer">
+              <span class="socialDot"></span>
+              <span style="color: var(--text);">linkedin</span>
+            </a>
+            <a class="socialLink" href="https://github.com/patriciayji27" target="_blank" rel="noreferrer">
+              <span class="socialDot"></span>
+              <span style="color: var(--text);">github</span>
+            </a>
+            <a class="socialLink" href="mailto:pyji@uchicago.edu">
+              <span class="socialDot"></span>
+              <span style="color: var(--text);">email</span>
+            </a>
           </div>
         </div>
       </div>
+
     </div>
 
     <div class="footer">
       <div>© <span id="y"></span> patricia ji</div>
-      <div>built on gitHub pages, html, and (a sprinkle of) json</div>
+      <div>built on github pages, html, and (a sprinkle of) json</div>
     </div>
   </div>
 
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
+
+    // ── accordion: only one details open at a time ──
+    document.querySelectorAll('.axisDetails').forEach(function(detail) {
+      detail.addEventListener('toggle', function() {
+        if (this.open) {
+          document.querySelectorAll('.axisDetails').forEach(function(other) {
+            if (other !== detail) {
+              other.removeAttribute('open');
+            }
+          });
+        }
+      });
+    });
+
+    // ── sidebar active state + smooth scroll ──
+    (function(){
+      var sections = ['projects','misc','quicklinks','connect'];
+      var links = document.querySelectorAll('.sidebar-link');
+
+      function update(){
+        var scrollY = window.scrollY + window.innerHeight * 0.35;
+        var active = null;
+        sections.forEach(function(id, i){
+          var el = document.getElementById(id);
+          if (el && el.offsetTop <= scrollY) active = i;
+        });
+        links.forEach(function(l, i){
+          if (i === active) l.classList.add('active');
+          else l.classList.remove('active');
+        });
+      }
+
+      links.forEach(function(link){
+        link.addEventListener('click', function(e){
+          e.preventDefault();
+          var target = document.querySelector(this.getAttribute('href'));
+          if (target){
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+
+      window.addEventListener('scroll', update, { passive: true });
+      update();
+    })();
+
+    // ── floating bubbles ──
+    (function(){
+      var container = document.getElementById('bubbles');
+      var count = 12;
+      var palette = [
+        'rgba(45,212,191,0.06)',
+        'rgba(139,92,246,0.06)',
+        'rgba(45,212,191,0.04)',
+        'rgba(139,92,246,0.04)',
+        'rgba(93,160,220,0.05)'
+      ];
+      for (var i = 0; i < count; i++) {
+        var el = document.createElement('div');
+        el.className = 'bubble';
+        var size = 60 + Math.random() * 180;
+        el.style.width = size + 'px';
+        el.style.height = size + 'px';
+        el.style.left = Math.random() * 100 + '%';
+        el.style.background = palette[Math.floor(Math.random() * palette.length)];
+        var dur = 18 + Math.random() * 22;
+        el.style.animationDuration = dur + 's';
+        el.style.animationDelay = '-' + (Math.random() * dur) + 's';
+        container.appendChild(el);
+      }
+    })();
   </script>
 </body>
 </html>
