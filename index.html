@@ -22,13 +22,12 @@
 
       --shadow: 0 20px 60px rgba(0,0,0,0.45);
       --radius: 18px;
-      --max: 880px;
+      --max: 1060px;
     }
 
     * { box-sizing: border-box; }
     html, body { min-height: 100%; }
 
-    /* background always covers full page */
     html{
       background-color: #071320;
       background-image:
@@ -79,6 +78,34 @@
       z-index: 1;
     }
 
+    /* ── two-column layout ── */
+    .splitLayout{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+    @media (max-width: 860px){
+      .splitLayout{
+        grid-template-columns: 1fr;
+      }
+      .leftCol{ position: static !important; }
+    }
+
+    /* left column: sticky */
+    .leftCol{
+      position: sticky;
+      top: 36px;
+      align-self: start;
+    }
+
+    /* right column: scrolls naturally */
+    .rightCol{
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
     /* ── sidebar ── */
     .sidebar{
       position: fixed;
@@ -97,7 +124,6 @@
       align-items: center;
       padding: 8px 0;
     }
-    /* vertical connecting line */
     .sidebar-track::before{
       content: "";
       position: absolute;
@@ -165,20 +191,7 @@
       .sidebar{ display: none; }
     }
 
-    /* ── hero ── */
-    .heroHead{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap: 14px;
-    }
-    .hero{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 16px;
-      margin-top: 14px;
-    }
-
+    /* ── card ── */
     .card{
       background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.05));
       border: 1px solid var(--stroke);
@@ -189,20 +202,21 @@
     .card .inner{ padding: 24px; }
 
     .headline{
-      font-size: clamp(30px, 4.3vw, 46px);
+      font-size: clamp(26px, 3.6vw, 40px);
       line-height: 1.08;
       letter-spacing: -0.6px;
       margin: 0 0 10px 0;
     }
     .subhead{
-      margin: 0 0 14px 0;
+      margin: 0 0 12px 0;
       color: var(--muted);
-      font-size: 17px;
+      font-size: 15.5px;
       line-height: 1.6;
       max-width: 62ch;
     }
     .subhead.subhead--secondary {
       color: rgba(180, 200, 215, 0.75) !important;
+      font-size: 14.5px;
     }
     .project-label {
       color: var(--accent);
@@ -213,13 +227,6 @@
     .axis{
       margin-top: 10px;
       padding-top: 8px;
-    }
-    .axisTitle{
-      color: var(--muted2);
-      font-size: 13px;
-      letter-spacing: 0.10em;
-      text-transform: uppercase;
-      margin-bottom: 10px;
     }
     .axisList{
       list-style: none;
@@ -232,7 +239,7 @@
       position: relative;
       padding-left: 24px;
       color: var(--muted);
-      font-size: 15px;
+      font-size: 14.5px;
       line-height: 1.5;
     }
     .axisItem::before{
@@ -270,55 +277,45 @@
     .axisSummary .axisLabel{
       display: block;
       font-weight: 750;
-      font-size: 15.5px;
+      font-size: 15px;
       color: #2dd4bf;
     }
     .axisSummary .axisSub{
       display: block;
       margin-top: 4px;
-      font-size: 14px;
+      font-size: 13.5px;
       line-height: 1.4;
       color: rgba(236, 244, 255, 0.60);
     }
     .axisPanel{
       margin-top: 10px;
-      padding: 16px;
+      padding: 14px;
       border-radius: 14px;
       border: 1px solid rgba(139,92,246,0.22);
       background: rgba(255,255,255,0.04);
     }
     .axisPanelTitle{
       font-weight: 750;
-      font-size: 15px;
+      font-size: 14.5px;
       color: rgba(236,244,255,0.92);
       margin-bottom: 8px;
     }
     .axisPanelText{
       color: rgba(236,244,255,0.70);
-      font-size: 15px;
+      font-size: 14px;
       line-height: 1.5;
-      margin-bottom: 6px;
+      margin-bottom: 5px;
     }
-    .axisPanelText:last-child{
-      margin-bottom: 0;
-    }
+    .axisPanelText:last-child{ margin-bottom: 0; }
     .axisDetails[open] .axisPanel{
       background: rgba(45,212,191,0.06);
       border-color: rgba(45,212,191,0.22);
     }
 
-    /* ── bottom blocks ── */
-    .bottomBlocks{
-      margin-top: 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
     /* ── section kicker ── */
     .sectionKicker{
       color: var(--muted2);
-      font-size: 13px;
+      font-size: 12.5px;
       letter-spacing: 0.10em;
       text-transform: uppercase;
       margin-bottom: 14px;
@@ -334,7 +331,7 @@
     }
     .projectItem{
       position: relative;
-      padding: 15px 16px 15px 40px;
+      padding: 14px 16px 14px 38px;
       border-bottom: 1px solid rgba(255,255,255,0.06);
       transition: background 0.2s ease;
     }
@@ -342,14 +339,13 @@
     .projectItem:hover{
       background: rgba(45,212,191,0.04);
     }
-    /* diamond marker */
     .projectItem::before{
       content: "";
       position: absolute;
       left: 14px;
       top: 50%;
-      width: 9px;
-      height: 9px;
+      width: 8px;
+      height: 8px;
       transform: translateY(-50%) rotate(45deg);
       background: linear-gradient(135deg, var(--accent), var(--accent2));
       border-radius: 2px;
@@ -363,7 +359,7 @@
     }
     .projectItem a{
       color: rgba(200,225,255,0.92);
-      font-size: 16.5px;
+      font-size: 16px;
       font-weight: 500;
       text-decoration: none;
       letter-spacing: 0.15px;
@@ -376,7 +372,7 @@
     /* ── misc about ── */
     .miscAbout{
       color: var(--muted);
-      font-size: 16px;
+      font-size: 15.5px;
       line-height: 1.65;
     }
 
@@ -396,13 +392,13 @@
     }
     .quickLinkItem .qlTitle{
       font-weight: 650;
-      font-size: 16px;
+      font-size: 15.5px;
       margin-bottom: 3px;
       color: var(--text);
     }
     .quickLinkItem .qlMeta{
       color: var(--muted);
-      font-size: 15px;
+      font-size: 14.5px;
       line-height: 1.4;
     }
 
@@ -422,7 +418,7 @@
       border: 1px solid rgba(139,92,246,0.22);
       background: rgba(255,255,255,0.04);
       color: var(--muted);
-      font-size: 15px;
+      font-size: 14.5px;
       text-decoration: none;
     }
     .socialLink:hover{
@@ -479,162 +475,161 @@
   </nav>
 
   <div class="wrap">
+    <div class="splitLayout">
 
-    <!-- ═══════════ HERO ═══════════ -->
-    <div class="hero">
-      <div class="card">
-        <div class="inner">
-          <div class="heroHead">
+      <!-- ═══════ LEFT: sticky hero ═══════ -->
+      <div class="leftCol">
+        <div class="card">
+          <div class="inner">
             <h1 class="headline">hey i'm patricia</h1>
+            <p class="subhead">statistics & cognitive science @ uchicago</p>
+            <p class="subhead subhead--secondary">interested in the intersection of agentic ai and human decision-making elicitation and its application to the financial market</p>
+
+            <div class="axis">
+              <ul class="axisList">
+                <li class="axisItem">
+                  <details class="axisDetails">
+                    <summary class="axisSummary">
+                      <span class="axisLabel">quant trading</span>
+                      <span class="axisSub">incoming qt intern @ imc; incoming trading bootcamp @ peak6</span>
+                    </summary>
+                    <div class="axisPanel">
+                      <div class="axisPanelTitle">programs and discovery days</div>
+                      <div class="axisPanelText">• sig women discovery</div>
+                      <div class="axisPanelText">• imc math madness, women in trading & technology</div>
+                      <div class="axisPanelText">• two sigma new seekers</div>
+                      <div class="axisPanelText">• citadel fixed income & macro central bank challenge</div>
+                      <div class="axisPanelText">• ms future traders (equity derivatives)</div>
+                      <div class="axisPanelText">• traders@mit competition</div>
+                      <div class="axisPanelText">• uchicago trading competition</div>
+                    </div>
+                  </details>
+                </li>
+
+                <li class="axisItem">
+                  <details class="axisDetails">
+                    <summary class="axisSummary">
+                      <span class="axisLabel">fundamentals & macro research</span>
+                      <span class="axisSub">prev @ mobius investments</span>
+                    </summary>
+                    <div class="axisPanel">
+                      <div class="axisPanelTitle">recognition</div>
+                      <div class="axisPanelText">• third place @ uchicago stock pitch competition on caesars entertainment</div>
+                      <div class="axisPanelText">• global top 100 @ bridgewater forecasting the future 2025</div>
+                      <div class="axisPanelText">• bridgewater x metaculus 2026</div>
+                    </div>
+                  </details>
+                </li>
+
+                <li class="axisItem">
+                  <details class="axisDetails">
+                    <summary class="axisSummary">
+                      <span class="axisLabel">activities & leadership</span>
+                      <span class="axisSub">current vp education @ the derivatives group; vp finance @ panhellenic</span>
+                    </summary>
+                    <div class="axisPanel">
+                      <div class="axisPanelTitle">previously</div>
+                      <div class="axisPanelText">• quant finance cohort leader @ the derivatives group</div>
+                      <div class="axisPanelText">• consultant @ campus catalyst</div>
+                      <div class="axisPanelText">• campus ambassador @ girls who invest</div>
+                      <div class="axisPanelText">• intramural & pickup volleyball</div>
+                    </div>
+                  </details>
+                </li>
+
+                <li class="axisItem">
+                  <details class="axisDetails">
+                    <summary class="axisSummary">
+                      <span class="axisLabel">research</span>
+                      <span class="axisSub">current @ fermilab</span>
+                    </summary>
+                    <div class="axisPanel">
+                      <div class="axisPanelTitle">projects</div>
+                      <div class="axisPanelText">
+                        <span class="project-label">data cognition lab:</span>
+                        examines how uncertainty visualizations and financial headlines affect bias and sensitivity in risky asset choices, accounting for individual risk tolerance
+                      </div>
+                      <div class="axisPanelText">
+                        <span class="project-label">fermilab:</span>
+                        develops a unified neural network–based adaptive control framework in accelerator resonance control and real-time neurostimulation to enable responsive control of physical and neural systems
+                      </div>
+                    </div>
+                  </details>
+                </li>
+              </ul>
+            </div>
           </div>
+        </div>
+      </div>
 
-          <p class="subhead">statistics & cognitive science @ uchicago</p>
-          <p class="subhead subhead--secondary">interested in the intersection of agentic ai and human decision-making elicitation and its application to the financial market</p>
-          <div class="axis">
-            <div class="axisTitle"></div>
-            <ul class="axisList">
-              <li class="axisItem">
-                <details class="axisDetails">
-                  <summary class="axisSummary">
-                    <span class="axisLabel">quant trading</span>
-                    <span class="axisSub">incoming qt intern @ imc; incoming trading bootcamp @ peak6</span>
-                  </summary>
-                  <div class="axisPanel">
-                    <div class="axisPanelTitle">programs and discovery days</div>
-                    <div class="axisPanelText">• sig women discovery</div>
-                    <div class="axisPanelText">• imc math madness, women in trading & technology</div>
-                    <div class="axisPanelText">• two sigma new seekers</div>
-                    <div class="axisPanelText">• citadel fixed income & macro central bank challenge</div>
-                    <div class="axisPanelText">• ms future traders (equity derivatives)</div>
-                    <div class="axisPanelText">• traders@mit competition</div>
-                    <div class="axisPanelText">• uchicago trading competition</div>
-                  </div>
-                </details>
-              </li>
+      <!-- ═══════ RIGHT: scrollable sections ═══════ -->
+      <div class="rightCol">
 
-              <li class="axisItem">
-                <details class="axisDetails">
-                  <summary class="axisSummary">
-                    <span class="axisLabel">fundamentals & macro research</span>
-                    <span class="axisSub">prev @ mobius investments</span>
-                  </summary>
-                  <div class="axisPanel">
-                    <div class="axisPanelTitle">recognition</div>
-                    <div class="axisPanelText">• third place @ uchicago stock pitch competition on caesars entertainment</div>
-                    <div class="axisPanelText">• global top 100 @ bridgewater forecasting the future 2025</div>
-                    <div class="axisPanelText">• bridgewater x metaculus 2026</div>
-                  </div>
-                </details>
-              </li>
-
-              <li class="axisItem">
-                <details class="axisDetails">
-                  <summary class="axisSummary">
-                    <span class="axisLabel">activities & leadership</span>
-                    <span class="axisSub">current vp education @ the derivatives group; vp finance @ panhellenic</span>
-                  </summary>
-                  <div class="axisPanel">
-                    <div class="axisPanelTitle">previously</div>
-                    <div class="axisPanelText">• quant finance cohort leader @ the derivatives group</div>
-                    <div class="axisPanelText">• consultant @ campus catalyst</div>
-                    <div class="axisPanelText">• campus ambassador @ girls who invest</div>
-                    <div class="axisPanelText">• intramural & pickup volleyball</div>
-                  </div>
-                </details>
-              </li>
-
-              <li class="axisItem">
-                <details class="axisDetails">
-                  <summary class="axisSummary">
-                    <span class="axisLabel">research</span>
-                    <span class="axisSub">current @ fermilab</span>
-                  </summary>
-                  <div class="axisPanel">
-                    <div class="axisPanelTitle">projects</div>
-                    <div class="axisPanelText">
-                      <span class="project-label">data cognition lab:</span>
-                      examines how uncertainty visualizations and financial headlines affect bias and sensitivity in risky asset choices, accounting for individual risk tolerance
-                    </div>
-                    <div class="axisPanelText">
-                      <span class="project-label">fermilab:</span>
-                      develops a unified neural network–based adaptive control framework in accelerator resonance control and real-time neurostimulation to enable responsive control of physical and neural systems
-                    </div>
-                  </div>
-                </details>
-              </li>
+        <!-- 1. PROJECTS -->
+        <div class="card" id="projects">
+          <div class="inner">
+            <div class="sectionKicker">PROJECTS</div>
+            <ul class="projectList">
+              <li class="projectItem"><a href="https://github.com/patriciayji27" target="_blank" rel="noreferrer">s&p 500 price prediction</a></li>
+              <li class="projectItem"><a href="https://github.com/patriciayji27" target="_blank" rel="noreferrer">multiple testing and modern inference</a></li>
+              <li class="projectItem"><a href="https://github.com/patriciayji27" target="_blank" rel="noreferrer">trading competitions</a></li>
+              <li class="projectItem"><a href="https://github.com/patriciayji27" target="_blank" rel="noreferrer">market regime identification</a></li>
+              <li class="projectItem"><a href="https://github.com/patriciayji27" target="_blank" rel="noreferrer">smart index</a></li>
             </ul>
           </div>
         </div>
-      </div>
-    </div>
 
-    <!-- ═══════════ BOTTOM BLOCKS ═══════════ -->
-    <div class="bottomBlocks">
-
-      <!-- 1. PROJECTS -->
-      <div class="card" id="projects">
-        <div class="inner">
-          <div class="sectionKicker">PROJECTS</div>
-          <ul class="projectList">
-            <li class="projectItem"><a href="https://github.com/patriciayji27" target="_blank" rel="noreferrer">s&p 500 price prediction</a></li>
-            <li class="projectItem"><a href="https://github.com/patriciayji27" target="_blank" rel="noreferrer">multiple testing and modern inference</a></li>
-            <li class="projectItem"><a href="https://github.com/patriciayji27" target="_blank" rel="noreferrer">trading competitions</a></li>
-            <li class="projectItem"><a href="https://github.com/patriciayji27" target="_blank" rel="noreferrer">market regime identification</a></li>
-            <li class="projectItem"><a href="https://github.com/patriciayji27" target="_blank" rel="noreferrer">smart index</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- 2. MISC -->
-      <div class="card" id="misc">
-        <div class="inner">
-          <div class="sectionKicker">MISC</div>
-          <div class="miscAbout">
-            outside of work, i write on substack, follow soccer (blue moon rising), train for the chicago 10-mile, and paint across multiple mediums. i love exploring coffee shops, spending time outdoors (skiing and running), and have a long-standing appreciation for golden retrievers.
+        <!-- 2. MISC -->
+        <div class="card" id="misc">
+          <div class="inner">
+            <div class="sectionKicker">MISC</div>
+            <div class="miscAbout">
+              outside of work, i write on substack, follow soccer (blue moon rising), train for the chicago 10-mile, and paint across multiple mediums. i love exploring coffee shops, spending time outdoors (skiing and running), and have a long-standing appreciation for golden retrievers.
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- 3. QUICK LINKS -->
-      <div class="card" id="quicklinks">
-        <div class="inner">
-          <div class="sectionKicker">QUICK LINKS</div>
-          <a class="quickLinkItem" href="/reading/">
-            <div class="qlTitle">reading log</div>
-            <div class="qlMeta">recent good stuff</div>
-          </a>
-          <a class="quickLinkItem" href="https://onthemarket.substack.com/" target="_blank" rel="noreferrer">
-            <div class="qlTitle">on the market</div>
-            <div class="qlMeta">investing ideas and market philosophy</div>
-          </a>
-        </div>
-      </div>
-
-      <!-- 4. CONNECT WITH ME -->
-      <div class="card" id="connect">
-        <div class="inner">
-          <div class="sectionKicker">CONNECT WITH ME</div>
-          <div class="socialRow">
-            <a class="socialLink" href="https://instagram.com/patriciayji" target="_blank" rel="noreferrer">
-              <span class="socialDot"></span>
-              <span style="color: var(--text);">instagram</span>
+        <!-- 3. QUICK LINKS -->
+        <div class="card" id="quicklinks">
+          <div class="inner">
+            <div class="sectionKicker">QUICK LINKS</div>
+            <a class="quickLinkItem" href="/reading/">
+              <div class="qlTitle">reading log</div>
+              <div class="qlMeta">recent good stuff</div>
             </a>
-            <a class="socialLink" href="https://www.linkedin.com/in/patriciayji" target="_blank" rel="noreferrer">
-              <span class="socialDot"></span>
-              <span style="color: var(--text);">linkedin</span>
-            </a>
-            <a class="socialLink" href="https://github.com/patriciayji27" target="_blank" rel="noreferrer">
-              <span class="socialDot"></span>
-              <span style="color: var(--text);">github</span>
-            </a>
-            <a class="socialLink" href="mailto:pyji@uchicago.edu">
-              <span class="socialDot"></span>
-              <span style="color: var(--text);">email</span>
+            <a class="quickLinkItem" href="https://onthemarket.substack.com/" target="_blank" rel="noreferrer">
+              <div class="qlTitle">on the market</div>
+              <div class="qlMeta">investing ideas and market philosophy</div>
             </a>
           </div>
         </div>
-      </div>
 
+        <!-- 4. CONNECT WITH ME -->
+        <div class="card" id="connect">
+          <div class="inner">
+            <div class="sectionKicker">CONNECT WITH ME</div>
+            <div class="socialRow">
+              <a class="socialLink" href="https://instagram.com/patriciayji" target="_blank" rel="noreferrer">
+                <span class="socialDot"></span>
+                <span style="color: var(--text);">instagram</span>
+              </a>
+              <a class="socialLink" href="https://www.linkedin.com/in/patriciayji" target="_blank" rel="noreferrer">
+                <span class="socialDot"></span>
+                <span style="color: var(--text);">linkedin</span>
+              </a>
+              <a class="socialLink" href="https://github.com/patriciayji27" target="_blank" rel="noreferrer">
+                <span class="socialDot"></span>
+                <span style="color: var(--text);">github</span>
+              </a>
+              <a class="socialLink" href="mailto:pyji@uchicago.edu">
+                <span class="socialDot"></span>
+                <span style="color: var(--text);">email</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
 
     <div class="footer">
