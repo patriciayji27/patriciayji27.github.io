@@ -89,17 +89,53 @@
       .splitLayout{
         grid-template-columns: 1fr;
       }
-      .leftCol{ position: static !important; }
+      .leftCol{
+        position: static !important;
+        height: auto !important;
+      }
+      .leftCard{
+        min-height: auto !important;
+      }
     }
 
-    /* left column: sticky */
+    /* left column: sticky, fills viewport */
     .leftCol{
       position: sticky;
       top: 36px;
       align-self: start;
+      height: calc(100vh - 72px);
     }
 
-    /* right column: scrolls naturally */
+    .leftCard{
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.05));
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .leftCard .inner{
+      padding: 28px 26px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* hero content grows to push connect down */
+    .heroContent{
+      flex: 1;
+    }
+
+    /* connect section pinned to bottom of left card */
+    .leftConnect{
+      margin-top: auto;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    /* right column: scrolls */
     .rightCol{
       display: flex;
       flex-direction: column;
@@ -225,7 +261,7 @@
 
     /* ── axis / timeline ── */
     .axis{
-      margin-top: 10px;
+      margin-top: 14px;
       padding-top: 8px;
     }
     .axisList{
@@ -320,6 +356,13 @@
       text-transform: uppercase;
       margin-bottom: 14px;
     }
+    .connectKicker{
+      color: var(--muted2);
+      font-size: 12px;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
 
     /* ── projects list ── */
     .projectList{
@@ -383,53 +426,111 @@
       border: 1px solid var(--stroke);
       border-radius: 14px;
       padding: 14px 16px;
-      transition: background 0.15s;
+      transition: all 0.2s ease;
+      cursor: pointer;
     }
     .quickLinkItem + .quickLinkItem{ margin-top: 10px; }
     .quickLinkItem:hover{
-      background: rgba(255,255,255,0.09);
+      background: rgba(45,212,191,0.06);
+      border-color: rgba(45,212,191,0.25);
       text-decoration: none;
+    }
+    .quickLinkItem:active,
+    .quickLinkItem.ql-active{
+      background: rgba(45,212,191,0.10);
+      border-color: rgba(45,212,191,0.40);
     }
     .quickLinkItem .qlTitle{
       font-weight: 650;
       font-size: 15.5px;
       margin-bottom: 3px;
       color: var(--text);
+      transition: color 0.2s ease;
+    }
+    .quickLinkItem:hover .qlTitle{
+      color: #2dd4bf;
+    }
+    .quickLinkItem:active .qlTitle,
+    .quickLinkItem.ql-active .qlTitle{
+      color: #2dd4bf;
     }
     .quickLinkItem .qlMeta{
       color: var(--muted);
       font-size: 14.5px;
       line-height: 1.4;
+      transition: color 0.2s ease;
+    }
+    .quickLinkItem:hover .qlMeta{
+      color: rgba(45,212,191,0.70);
+    }
+    .quickLinkItem:active .qlMeta,
+    .quickLinkItem.ql-active .qlMeta{
+      color: rgba(45,212,191,0.70);
+    }
+    /* subtle teal left accent on hover/active */
+    .quickLinkItem{
+      border-left: 3px solid transparent;
+    }
+    .quickLinkItem:hover,
+    .quickLinkItem:active,
+    .quickLinkItem.ql-active{
+      border-left-color: #2dd4bf;
     }
 
-    /* ── social row ── */
+    /* ── social row (enhanced) ── */
     .socialRow{
-      display:flex;
+      display: flex;
       flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 4px;
+      gap: 8px;
     }
     .socialLink{
-      display:inline-flex;
-      align-items:center;
+      display: inline-flex;
+      align-items: center;
       gap: 8px;
-      padding: 10px 14px;
+      padding: 9px 14px;
       border-radius: 999px;
-      border: 1px solid rgba(139,92,246,0.22);
       background: rgba(255,255,255,0.04);
       color: var(--muted);
-      font-size: 14.5px;
+      font-size: 14px;
       text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    /* gradient border on hover via box-shadow trick */
+    .socialLink::before{
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(139,92,246,0.0), rgba(45,212,191,0.0));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      transition: background 0.3s ease;
+      pointer-events: none;
     }
     .socialLink:hover{
-      background: rgba(255,255,255,0.08);
+      background: rgba(45,212,191,0.08);
+      border-color: rgba(45,212,191,0.30);
       color: var(--text);
       text-decoration: none;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(45,212,191,0.12);
+    }
+    .socialLink:hover::before{
+      background: linear-gradient(135deg, rgba(139,92,246,0.50), rgba(45,212,191,0.50));
     }
     .socialDot{
-      width: 9px; height: 9px; border-radius: 50%;
+      width: 8px; height: 8px; border-radius: 50%;
       background: linear-gradient(180deg, var(--accent), var(--accent2));
-      box-shadow: 0 0 0 5px rgba(139,92,246,0.10);
+      box-shadow: 0 0 6px rgba(45,212,191,0.25);
+      transition: box-shadow 0.3s ease;
+    }
+    .socialLink:hover .socialDot{
+      box-shadow: 0 0 10px rgba(45,212,191,0.50);
     }
 
     /* ── footer ── */
@@ -467,97 +568,120 @@
         <span class="sidebar-dot"></span>
         <span class="sidebar-label">quick links</span>
       </a>
-      <a class="sidebar-link" href="#connect">
-        <span class="sidebar-dot"></span>
-        <span class="sidebar-label">connect</span>
-      </a>
     </div>
   </nav>
 
   <div class="wrap">
     <div class="splitLayout">
 
-      <!-- ═══════ LEFT: sticky hero ═══════ -->
+      <!-- ═══════ LEFT: sticky, full-height ═══════ -->
       <div class="leftCol">
-        <div class="card">
+        <div class="leftCard">
           <div class="inner">
-            <h1 class="headline">hey i'm patricia</h1>
-            <p class="subhead">statistics & cognitive science @ uchicago</p>
-            <p class="subhead subhead--secondary">interested in the intersection of agentic ai and human decision-making elicitation and its application to the financial market</p>
 
-            <div class="axis">
-              <ul class="axisList">
-                <li class="axisItem">
-                  <details class="axisDetails">
-                    <summary class="axisSummary">
-                      <span class="axisLabel">quant trading</span>
-                      <span class="axisSub">incoming qt intern @ imc; incoming trading bootcamp @ peak6</span>
-                    </summary>
-                    <div class="axisPanel">
-                      <div class="axisPanelTitle">programs and discovery days</div>
-                      <div class="axisPanelText">• sig women discovery</div>
-                      <div class="axisPanelText">• imc math madness, women in trading & technology</div>
-                      <div class="axisPanelText">• two sigma new seekers</div>
-                      <div class="axisPanelText">• citadel fixed income & macro central bank challenge</div>
-                      <div class="axisPanelText">• ms future traders (equity derivatives)</div>
-                      <div class="axisPanelText">• traders@mit competition</div>
-                      <div class="axisPanelText">• uchicago trading competition</div>
-                    </div>
-                  </details>
-                </li>
+            <div class="heroContent">
+              <h1 class="headline">hey i'm patricia</h1>
+              <p class="subhead">statistics & cognitive science @ uchicago</p>
+              <p class="subhead subhead--secondary">interested in the intersection of agentic ai and human decision-making elicitation and its application to the financial market</p>
 
-                <li class="axisItem">
-                  <details class="axisDetails">
-                    <summary class="axisSummary">
-                      <span class="axisLabel">fundamentals & macro research</span>
-                      <span class="axisSub">prev @ mobius investments</span>
-                    </summary>
-                    <div class="axisPanel">
-                      <div class="axisPanelTitle">recognition</div>
-                      <div class="axisPanelText">• third place @ uchicago stock pitch competition on caesars entertainment</div>
-                      <div class="axisPanelText">• global top 100 @ bridgewater forecasting the future 2025</div>
-                      <div class="axisPanelText">• bridgewater x metaculus 2026</div>
-                    </div>
-                  </details>
-                </li>
-
-                <li class="axisItem">
-                  <details class="axisDetails">
-                    <summary class="axisSummary">
-                      <span class="axisLabel">activities & leadership</span>
-                      <span class="axisSub">current vp education @ the derivatives group; vp finance @ panhellenic</span>
-                    </summary>
-                    <div class="axisPanel">
-                      <div class="axisPanelTitle">previously</div>
-                      <div class="axisPanelText">• quant finance cohort leader @ the derivatives group</div>
-                      <div class="axisPanelText">• consultant @ campus catalyst</div>
-                      <div class="axisPanelText">• campus ambassador @ girls who invest</div>
-                      <div class="axisPanelText">• intramural & pickup volleyball</div>
-                    </div>
-                  </details>
-                </li>
-
-                <li class="axisItem">
-                  <details class="axisDetails">
-                    <summary class="axisSummary">
-                      <span class="axisLabel">research</span>
-                      <span class="axisSub">current @ fermilab</span>
-                    </summary>
-                    <div class="axisPanel">
-                      <div class="axisPanelTitle">projects</div>
-                      <div class="axisPanelText">
-                        <span class="project-label">data cognition lab:</span>
-                        examines how uncertainty visualizations and financial headlines affect bias and sensitivity in risky asset choices, accounting for individual risk tolerance
+              <div class="axis">
+                <ul class="axisList">
+                  <li class="axisItem">
+                    <details class="axisDetails">
+                      <summary class="axisSummary">
+                        <span class="axisLabel">quant trading</span>
+                        <span class="axisSub">incoming qt intern @ imc; incoming trading bootcamp @ peak6</span>
+                      </summary>
+                      <div class="axisPanel">
+                        <div class="axisPanelTitle">programs and discovery days</div>
+                        <div class="axisPanelText">• sig women discovery</div>
+                        <div class="axisPanelText">• imc math madness, women in trading & technology</div>
+                        <div class="axisPanelText">• two sigma new seekers</div>
+                        <div class="axisPanelText">• citadel fixed income & macro central bank challenge</div>
+                        <div class="axisPanelText">• ms future traders (equity derivatives)</div>
+                        <div class="axisPanelText">• traders@mit competition</div>
+                        <div class="axisPanelText">• uchicago trading competition</div>
                       </div>
-                      <div class="axisPanelText">
-                        <span class="project-label">fermilab:</span>
-                        develops a unified neural network–based adaptive control framework in accelerator resonance control and real-time neurostimulation to enable responsive control of physical and neural systems
+                    </details>
+                  </li>
+
+                  <li class="axisItem">
+                    <details class="axisDetails">
+                      <summary class="axisSummary">
+                        <span class="axisLabel">fundamentals & macro research</span>
+                        <span class="axisSub">prev @ mobius investments</span>
+                      </summary>
+                      <div class="axisPanel">
+                        <div class="axisPanelTitle">recognition</div>
+                        <div class="axisPanelText">• third place @ uchicago stock pitch competition on caesars entertainment</div>
+                        <div class="axisPanelText">• global top 100 @ bridgewater forecasting the future 2025</div>
+                        <div class="axisPanelText">• bridgewater x metaculus 2026</div>
                       </div>
-                    </div>
-                  </details>
-                </li>
-              </ul>
+                    </details>
+                  </li>
+
+                  <li class="axisItem">
+                    <details class="axisDetails">
+                      <summary class="axisSummary">
+                        <span class="axisLabel">activities & leadership</span>
+                        <span class="axisSub">current vp education @ the derivatives group; vp finance @ panhellenic</span>
+                      </summary>
+                      <div class="axisPanel">
+                        <div class="axisPanelTitle">previously</div>
+                        <div class="axisPanelText">• quant finance cohort leader @ the derivatives group</div>
+                        <div class="axisPanelText">• consultant @ campus catalyst</div>
+                        <div class="axisPanelText">• campus ambassador @ girls who invest</div>
+                        <div class="axisPanelText">• intramural & pickup volleyball</div>
+                      </div>
+                    </details>
+                  </li>
+
+                  <li class="axisItem">
+                    <details class="axisDetails">
+                      <summary class="axisSummary">
+                        <span class="axisLabel">research</span>
+                        <span class="axisSub">current @ fermilab</span>
+                      </summary>
+                      <div class="axisPanel">
+                        <div class="axisPanelTitle">projects</div>
+                        <div class="axisPanelText">
+                          <span class="project-label">data cognition lab:</span>
+                          examines how uncertainty visualizations and financial headlines affect bias and sensitivity in risky asset choices, accounting for individual risk tolerance
+                        </div>
+                        <div class="axisPanelText">
+                          <span class="project-label">fermilab:</span>
+                          develops a unified neural network–based adaptive control framework in accelerator resonance control and real-time neurostimulation to enable responsive control of physical and neural systems
+                        </div>
+                      </div>
+                    </details>
+                  </li>
+                </ul>
+              </div>
             </div>
+
+            <!-- connect pinned to bottom of left card -->
+            <div class="leftConnect">
+              <div class="connectKicker">CONNECT WITH ME</div>
+              <div class="socialRow">
+                <a class="socialLink" href="https://instagram.com/patriciayji" target="_blank" rel="noreferrer">
+                  <span class="socialDot"></span>
+                  <span style="color: var(--text);">instagram</span>
+                </a>
+                <a class="socialLink" href="https://www.linkedin.com/in/patriciayji" target="_blank" rel="noreferrer">
+                  <span class="socialDot"></span>
+                  <span style="color: var(--text);">linkedin</span>
+                </a>
+                <a class="socialLink" href="https://github.com/patriciayji27" target="_blank" rel="noreferrer">
+                  <span class="socialDot"></span>
+                  <span style="color: var(--text);">github</span>
+                </a>
+                <a class="socialLink" href="mailto:pyji@uchicago.edu">
+                  <span class="socialDot"></span>
+                  <span style="color: var(--text);">email</span>
+                </a>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
@@ -604,31 +728,6 @@
           </div>
         </div>
 
-        <!-- 4. CONNECT WITH ME -->
-        <div class="card" id="connect">
-          <div class="inner">
-            <div class="sectionKicker">CONNECT WITH ME</div>
-            <div class="socialRow">
-              <a class="socialLink" href="https://instagram.com/patriciayji" target="_blank" rel="noreferrer">
-                <span class="socialDot"></span>
-                <span style="color: var(--text);">instagram</span>
-              </a>
-              <a class="socialLink" href="https://www.linkedin.com/in/patriciayji" target="_blank" rel="noreferrer">
-                <span class="socialDot"></span>
-                <span style="color: var(--text);">linkedin</span>
-              </a>
-              <a class="socialLink" href="https://github.com/patriciayji27" target="_blank" rel="noreferrer">
-                <span class="socialDot"></span>
-                <span style="color: var(--text);">github</span>
-              </a>
-              <a class="socialLink" href="mailto:pyji@uchicago.edu">
-                <span class="socialDot"></span>
-                <span style="color: var(--text);">email</span>
-              </a>
-            </div>
-          </div>
-        </div>
-
       </div>
     </div>
 
@@ -654,9 +753,19 @@
       });
     });
 
+    // ── quick link teal active state on click ──
+    document.querySelectorAll('.quickLinkItem').forEach(function(item){
+      item.addEventListener('click', function(){
+        document.querySelectorAll('.quickLinkItem').forEach(function(el){
+          el.classList.remove('ql-active');
+        });
+        this.classList.add('ql-active');
+      });
+    });
+
     // ── sidebar active state + smooth scroll ──
     (function(){
-      var sections = ['projects','misc','quicklinks','connect'];
+      var sections = ['projects','misc','quicklinks'];
       var links = document.querySelectorAll('.sidebar-link');
 
       function update(){
