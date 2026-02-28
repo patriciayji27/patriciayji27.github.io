@@ -4,60 +4,49 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Patricia Ji</title>
-  <meta name="description" content="Patricia Ji — stats/cog sci. Reading, projects, and notes." />
+  <meta name="description" content="Patricia Ji — stats/cog sci @ UChicago" />
 
   <style>
     :root{
-      --bg: #071320;
-      --panel: rgba(255,255,255,0.06);
-      --panel2: rgba(255,255,255,0.08);
-      --stroke: rgba(255,255,255,0.12);
-
-      --text: rgba(236, 244, 255, 0.92);
-      --muted: rgba(200, 220, 255, 0.74);
-      --muted2: rgba(190, 210, 255, 0.58);
-
+      --bg: #0a1628;
+      --stroke: rgba(255,255,255,0.08);
+      --text: rgba(236, 244, 255, 0.94);
+      --muted: rgba(200, 220, 255, 0.68);
+      --muted2: rgba(180, 205, 240, 0.50);
       --accent: #8b5cf6;
-      --accent2:#2dd4bf;
-
-      --shadow: 0 20px 60px rgba(0,0,0,0.45);
-      --radius: 18px;
-      --max: 1060px;
+      --accent2: #2dd4bf;
+      --teal: #2dd4bf;
+      --radius: 16px;
     }
 
-    * { box-sizing: border-box; }
-    html, body { min-height: 100%; }
+    *{ box-sizing: border-box; margin: 0; padding: 0; }
 
     html{
-      background-color: #071320;
+      background-color: #0a1628;
       background-image:
-        radial-gradient(1200px 600px at 12% 8%, rgba(45,212,191,0.18), transparent 55%),
-        radial-gradient(900px 600px at 75% 15%, rgba(139,92,246,0.18), transparent 55%),
-        radial-gradient(1000px 700px at 40% 90%, rgba(45,212,191,0.10), transparent 60%);
+        radial-gradient(ellipse 900px 500px at 10% 10%, rgba(45,212,191,0.14), transparent 60%),
+        radial-gradient(ellipse 700px 500px at 80% 20%, rgba(139,92,246,0.12), transparent 60%),
+        radial-gradient(ellipse 800px 500px at 50% 85%, rgba(45,212,191,0.07), transparent 60%);
       background-attachment: fixed;
     }
     body{
-      margin:0;
       color: var(--text);
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      min-height: 100vh;
-      overflow-x: hidden;
-      position: relative;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      height: 100vh;
+      overflow: hidden;
     }
+
+    a{ color: inherit; text-decoration: none; }
+    a:hover{ text-decoration: underline; text-underline-offset: 3px; }
 
     /* ── floating bubbles ── */
     .bubbles{
-      position: fixed;
-      top: 0; left: 0;
+      position: fixed; top: 0; left: 0;
       width: 100%; height: 100%;
-      pointer-events: none;
-      z-index: 0;
-      overflow: hidden;
+      pointer-events: none; z-index: 0; overflow: hidden;
     }
     .bubble{
-      position: absolute;
-      border-radius: 50%;
-      opacity: 0;
+      position: absolute; border-radius: 50%; opacity: 0;
       animation: floatBubble linear infinite;
     }
     @keyframes floatBubble{
@@ -67,238 +56,109 @@
       100%{ transform: translateY(-10vh) scale(1);   opacity: 0; }
     }
 
-    a{ color: inherit; text-decoration: none; }
-    a:hover{ text-decoration: underline; text-underline-offset: 3px; }
-
-    .wrap{
-      max-width: var(--max);
+    /* ═══════ VIEWPORT SPLIT ═══════ */
+    .viewport{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      height: 100vh;
+      max-width: 1100px;
       margin: 0 auto;
-      padding: 36px 18px 64px;
+      padding: 28px 20px;
+      gap: 20px;
       position: relative;
       z-index: 1;
     }
-
-    /* ── two-column layout ── */
-    .splitLayout{
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      align-items: start;
-    }
     @media (max-width: 860px){
-      .splitLayout{
+      .viewport{
         grid-template-columns: 1fr;
+        overflow-y: auto;
       }
-      .leftCol{
-        position: static !important;
-        height: auto !important;
-      }
-      .leftCard{
-        min-height: auto !important;
-      }
+      .leftPanel{ overflow-y: visible !important; max-height: none !important; }
     }
 
-    /* left column: sticky, fills viewport */
-    .leftCol{
-      position: sticky;
-      top: 36px;
-      align-self: start;
-      height: calc(100vh - 72px);
-    }
-
-    .leftCard{
-      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.05));
-      border: 1px solid var(--stroke);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
+    /* ── LEFT PANEL ── */
+    .leftPanel{
+      display: flex;
+      flex-direction: column;
+      height: 100%;
       overflow: hidden;
-      min-height: 100%;
-      display: flex;
-      flex-direction: column;
     }
-    .leftCard .inner{
-      padding: 28px 26px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* hero content grows to push connect down */
-    .heroContent{
-      flex: 1;
-    }
-
-    /* connect section pinned to bottom of left card */
-    .leftConnect{
-      margin-top: auto;
-      padding-top: 20px;
-      border-top: 1px solid rgba(255,255,255,0.08);
-    }
-
-    /* right column: scrolls */
-    .rightCol{
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    /* ── sidebar ── */
-    .sidebar{
-      position: fixed;
-      top: 50%;
-      right: clamp(14px, 2.8vw, 36px);
-      transform: translateY(-50%);
-      z-index: 100;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .sidebar-track{
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 8px 0;
-    }
-    .sidebar-track::before{
-      content: "";
-      position: absolute;
-      top: 22px;
-      bottom: 22px;
-      left: 50%;
-      width: 2px;
-      transform: translateX(-50%);
-      background: linear-gradient(180deg, rgba(139,92,246,0.30), rgba(45,212,191,0.30));
-      border-radius: 2px;
-    }
-    .sidebar-link{
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 16px 0;
-      text-decoration: none;
-      position: relative;
-      cursor: pointer;
-    }
-    .sidebar-link:hover{ text-decoration: none; }
-    .sidebar-dot{
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.12);
-      border: 1.5px solid rgba(139,92,246,0.40);
-      transition: all 0.3s ease;
-      flex-shrink: 0;
-      position: relative;
-      z-index: 2;
-    }
-    .sidebar-link:hover .sidebar-dot,
-    .sidebar-link.active .sidebar-dot{
-      background: linear-gradient(180deg, var(--accent), var(--accent2));
-      border-color: transparent;
-      box-shadow: 0 0 12px rgba(45,212,191,0.45);
-      transform: scale(1.3);
-    }
-    .sidebar-label{
-      position: absolute;
-      right: 28px;
-      white-space: nowrap;
-      font-size: 12px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted2);
-      opacity: 0;
-      transform: translateX(5px);
-      transition: all 0.25s ease;
-      pointer-events: none;
-      background: rgba(7,19,32,0.92);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      padding: 6px 12px;
-      border-radius: 8px;
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-    .sidebar-link:hover .sidebar-label{
-      opacity: 1;
-      transform: translateX(0);
-      color: var(--text);
-    }
-    @media (max-width: 960px){
-      .sidebar{ display: none; }
-    }
-
-    /* ── card ── */
-    .card{
-      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.05));
+    .leftCard{
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
       border: 1px solid var(--stroke);
       border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow:hidden;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
     }
-    .card .inner{ padding: 24px; }
+    .leftInner{
+      padding: 30px 28px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(45,212,191,0.2) transparent;
+    }
+    .leftInner::-webkit-scrollbar{ width: 4px; }
+    .leftInner::-webkit-scrollbar-track{ background: transparent; }
+    .leftInner::-webkit-scrollbar-thumb{
+      background: rgba(45,212,191,0.2);
+      border-radius: 4px;
+    }
+
+    .heroContent{ flex: 1; }
 
     .headline{
-      font-size: clamp(26px, 3.6vw, 40px);
-      line-height: 1.08;
-      letter-spacing: -0.6px;
-      margin: 0 0 10px 0;
+      font-size: clamp(32px, 4vw, 44px);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.8px;
+      color: #fff;
+      margin-bottom: 14px;
     }
     .subhead{
-      margin: 0 0 12px 0;
       color: var(--muted);
-      font-size: 15.5px;
-      line-height: 1.6;
-      max-width: 62ch;
+      font-size: 16.5px;
+      line-height: 1.55;
+      margin-bottom: 10px;
     }
-    .subhead.subhead--secondary {
-      color: rgba(180, 200, 215, 0.75) !important;
-      font-size: 14.5px;
-    }
-    .project-label {
-      color: var(--accent);
-      font-weight: 500;
+    .subhead--secondary{
+      color: var(--muted2);
+      font-size: 15px;
+      line-height: 1.55;
+      margin-bottom: 20px;
     }
 
-    /* ── axis / timeline ── */
-    .axis{
-      margin-top: 14px;
-      padding-top: 8px;
-    }
+    /* ── timeline ── */
     .axisList{
       list-style: none;
-      padding: 0;
-      margin: 0;
       display: grid;
-      gap: 14px;
+      gap: 18px;
     }
     .axisItem{
       position: relative;
-      padding-left: 24px;
-      color: var(--muted);
-      font-size: 14.5px;
+      padding-left: 26px;
+      font-size: 15.5px;
       line-height: 1.5;
     }
     .axisItem::before{
       content:"";
-      position:absolute;
-      left: 8px;
-      top: -16px;
-      bottom: -16px;
+      position: absolute;
+      left: 8px; top: -20px; bottom: -20px;
       width: 2px;
-      background: linear-gradient(180deg, rgba(139,92,246,0.55), rgba(45,212,191,0.50));
+      background: linear-gradient(180deg, rgba(139,92,246,0.45), rgba(45,212,191,0.40));
       border-radius: 2px;
-      opacity: 0.9;
     }
     .axisItem::after{
       content:"";
-      position:absolute;
-      left: 3px;
-      top: 5px;
-      width: 12px;
-      height: 12px;
+      position: absolute;
+      left: 2px; top: 6px;
+      width: 14px; height: 14px;
       border-radius: 50%;
       background: linear-gradient(180deg, var(--accent), var(--accent2));
-      box-shadow: 0 0 0 5px rgba(45,212,191,0.10);
+      box-shadow: 0 0 0 4px rgba(45,212,191,0.08);
     }
     .axisItem:last-child::before{ bottom: 6px; }
     .axisItem:first-child::before{ top: 6px; }
@@ -310,174 +170,195 @@
       padding: 2px 0;
     }
     .axisSummary::-webkit-details-marker{ display: none; }
-    .axisSummary .axisLabel{
+    .axisLabel{
       display: block;
-      font-weight: 750;
-      font-size: 15px;
-      color: #2dd4bf;
+      font-weight: 700;
+      font-size: 16.5px;
+      color: var(--teal);
     }
-    .axisSummary .axisSub{
+    .axisSub{
       display: block;
-      margin-top: 4px;
-      font-size: 13.5px;
-      line-height: 1.4;
-      color: rgba(236, 244, 255, 0.60);
+      margin-top: 5px;
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--muted2);
     }
+    .axisSub a{
+      color: var(--teal);
+      opacity: 0.75;
+    }
+    .axisSub a:hover{ opacity: 1; }
     .axisPanel{
-      margin-top: 10px;
-      padding: 14px;
-      border-radius: 14px;
-      border: 1px solid rgba(139,92,246,0.22);
-      background: rgba(255,255,255,0.04);
+      margin-top: 12px;
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(45,212,191,0.15);
+      background: rgba(45,212,191,0.04);
     }
     .axisPanelTitle{
-      font-weight: 750;
+      font-weight: 700;
       font-size: 14.5px;
-      color: rgba(236,244,255,0.92);
+      color: rgba(236,244,255,0.88);
       margin-bottom: 8px;
     }
     .axisPanelText{
-      color: rgba(236,244,255,0.70);
+      color: rgba(236,244,255,0.65);
       font-size: 14px;
-      line-height: 1.5;
+      line-height: 1.55;
       margin-bottom: 5px;
     }
     .axisPanelText:last-child{ margin-bottom: 0; }
-    .axisDetails[open] .axisPanel{
-      background: rgba(45,212,191,0.06);
-      border-color: rgba(45,212,191,0.22);
+
+    /* connect at bottom */
+    .leftConnect{
+      padding: 18px 28px 24px;
+      border-top: 1px solid var(--stroke);
     }
 
-    /* ── section kicker ── */
+    /* ── RIGHT PANEL ── */
+    .rightPanel{
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      overflow-y: auto;
+      padding-right: 4px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(139,92,246,0.2) transparent;
+    }
+    .rightPanel::-webkit-scrollbar{ width: 4px; }
+    .rightPanel::-webkit-scrollbar-track{ background: transparent; }
+    .rightPanel::-webkit-scrollbar-thumb{
+      background: rgba(139,92,246,0.2);
+      border-radius: 4px;
+    }
+    .rightInner{
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .card .inner{ padding: 24px; }
+
+    /* ── section kickers — teal ── */
     .sectionKicker{
-      color: var(--muted2);
-      font-size: 12.5px;
-      letter-spacing: 0.10em;
+      color: var(--teal);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
     .connectKicker{
-      color: var(--muted2);
-      font-size: 12px;
-      letter-spacing: 0.10em;
+      color: var(--teal);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
-    /* ── projects list ── */
+    /* ── projects ── */
     .projectList{
       list-style: none;
-      padding: 0;
-      margin: 0;
       display: grid;
       gap: 0;
     }
     .projectItem{
       position: relative;
-      padding: 14px 16px 14px 38px;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 14px 14px 14px 36px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
       transition: background 0.2s ease;
     }
     .projectItem:last-child{ border-bottom: none; }
-    .projectItem:hover{
-      background: rgba(45,212,191,0.04);
-    }
+    .projectItem:hover{ background: rgba(45,212,191,0.03); }
     .projectItem::before{
       content: "";
       position: absolute;
-      left: 14px;
-      top: 50%;
-      width: 8px;
-      height: 8px;
+      left: 12px; top: 50%;
+      width: 8px; height: 8px;
       transform: translateY(-50%) rotate(45deg);
       background: linear-gradient(135deg, var(--accent), var(--accent2));
       border-radius: 2px;
-      opacity: 0.8;
+      opacity: 0.7;
       transition: all 0.25s ease;
     }
     .projectItem:hover::before{
       opacity: 1;
-      transform: translateY(-50%) rotate(45deg) scale(1.25);
-      box-shadow: 0 0 10px rgba(45,212,191,0.35);
+      transform: translateY(-50%) rotate(45deg) scale(1.2);
+      box-shadow: 0 0 8px rgba(45,212,191,0.3);
     }
-    .projectItem a{
-      color: rgba(200,225,255,0.92);
+    .projectName{
+      color: #fff;
       font-size: 16px;
-      font-weight: 500;
+      font-weight: 600;
       text-decoration: none;
-      letter-spacing: 0.15px;
+      letter-spacing: 0.1px;
+      display: block;
     }
-    .projectItem a:hover{
-      color: #2dd4bf;
+    .projectName:hover{
+      color: var(--teal);
       text-decoration: none;
+    }
+    .projectDesc{
+      color: var(--muted2);
+      font-size: 13.5px;
+      line-height: 1.45;
+      margin-top: 3px;
     }
 
-    /* ── misc about ── */
+    /* ── misc ── */
     .miscAbout{
       color: var(--muted);
       font-size: 15.5px;
-      line-height: 1.65;
+      line-height: 1.7;
     }
 
     /* ── quick links ── */
     .quickLinkItem{
       display: block;
-      background: rgba(255,255,255,0.05);
+      background: rgba(255,255,255,0.03);
       border: 1px solid var(--stroke);
-      border-radius: 14px;
+      border-left: 3px solid transparent;
+      border-radius: 12px;
       padding: 14px 16px;
       transition: all 0.2s ease;
       cursor: pointer;
     }
     .quickLinkItem + .quickLinkItem{ margin-top: 10px; }
     .quickLinkItem:hover{
-      background: rgba(45,212,191,0.06);
-      border-color: rgba(45,212,191,0.25);
+      background: rgba(45,212,191,0.05);
+      border-left-color: var(--teal);
       text-decoration: none;
     }
     .quickLinkItem:active,
     .quickLinkItem.ql-active{
-      background: rgba(45,212,191,0.10);
-      border-color: rgba(45,212,191,0.40);
+      background: rgba(45,212,191,0.08);
+      border-left-color: var(--teal);
     }
-    .quickLinkItem .qlTitle{
+    .qlTitle{
       font-weight: 650;
       font-size: 15.5px;
-      margin-bottom: 3px;
       color: var(--text);
-      transition: color 0.2s ease;
+      transition: color 0.2s;
     }
-    .quickLinkItem:hover .qlTitle{
-      color: #2dd4bf;
-    }
-    .quickLinkItem:active .qlTitle,
+    .quickLinkItem:hover .qlTitle,
     .quickLinkItem.ql-active .qlTitle{
-      color: #2dd4bf;
+      color: var(--teal);
     }
-    .quickLinkItem .qlMeta{
-      color: var(--muted);
-      font-size: 14.5px;
+    .qlMeta{
+      color: var(--muted2);
+      font-size: 14px;
       line-height: 1.4;
-      transition: color 0.2s ease;
-    }
-    .quickLinkItem:hover .qlMeta{
-      color: rgba(45,212,191,0.70);
-    }
-    .quickLinkItem:active .qlMeta,
-    .quickLinkItem.ql-active .qlMeta{
-      color: rgba(45,212,191,0.70);
-    }
-    /* subtle teal left accent on hover/active */
-    .quickLinkItem{
-      border-left: 3px solid transparent;
-    }
-    .quickLinkItem:hover,
-    .quickLinkItem:active,
-    .quickLinkItem.ql-active{
-      border-left-color: #2dd4bf;
+      margin-top: 2px;
     }
 
-    /* ── social row (enhanced) ── */
+    /* ── social ── */
     .socialRow{
       display: flex;
       flex-wrap: wrap;
@@ -486,74 +367,111 @@
     .socialLink{
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 9px 14px;
+      gap: 7px;
+      padding: 8px 13px;
       border-radius: 999px;
       background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
       color: var(--muted);
-      font-size: 14px;
+      font-size: 13.5px;
       text-decoration: none;
-      position: relative;
-      overflow: hidden;
-      transition: all 0.3s ease;
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-    /* gradient border on hover via box-shadow trick */
-    .socialLink::before{
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: 999px;
-      padding: 1px;
-      background: linear-gradient(135deg, rgba(139,92,246,0.0), rgba(45,212,191,0.0));
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      transition: background 0.3s ease;
-      pointer-events: none;
+      transition: all 0.25s ease;
     }
     .socialLink:hover{
       background: rgba(45,212,191,0.08);
-      border-color: rgba(45,212,191,0.30);
-      color: var(--text);
+      border-color: rgba(45,212,191,0.25);
+      color: #fff;
       text-decoration: none;
       transform: translateY(-1px);
-      box-shadow: 0 4px 16px rgba(45,212,191,0.12);
-    }
-    .socialLink:hover::before{
-      background: linear-gradient(135deg, rgba(139,92,246,0.50), rgba(45,212,191,0.50));
+      box-shadow: 0 4px 14px rgba(45,212,191,0.10);
     }
     .socialDot{
-      width: 8px; height: 8px; border-radius: 50%;
-      background: linear-gradient(180deg, var(--accent), var(--accent2));
-      box-shadow: 0 0 6px rgba(45,212,191,0.25);
-      transition: box-shadow 0.3s ease;
+      width: 7px; height: 7px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 0 5px rgba(45,212,191,0.20);
     }
     .socialLink:hover .socialDot{
-      box-shadow: 0 0 10px rgba(45,212,191,0.50);
+      box-shadow: 0 0 8px rgba(45,212,191,0.45);
     }
 
-    /* ── footer ── */
-    .footer{
-      margin-top: 28px;
-      padding: 14px 16px;
-      border-radius: 14px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.08);
+    /* ── footer (inside right panel) ── */
+    .footerInline{
+      padding: 14px 0 4px;
       color: var(--muted2);
-      font-size: 13px;
-      display:flex;
-      justify-content:space-between;
+      font-size: 12.5px;
+      display: flex;
+      justify-content: space-between;
       gap: 10px;
       flex-wrap: wrap;
     }
+
+    /* ── sidebar ── */
+    .sidebar{
+      position: fixed;
+      top: 50%;
+      right: clamp(10px, 2vw, 28px);
+      transform: translateY(-50%);
+      z-index: 100;
+    }
+    .sidebar-track{
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 6px 0;
+    }
+    .sidebar-track::before{
+      content: "";
+      position: absolute;
+      top: 20px; bottom: 20px; left: 50%;
+      width: 1.5px;
+      transform: translateX(-50%);
+      background: linear-gradient(180deg, rgba(139,92,246,0.25), rgba(45,212,191,0.25));
+      border-radius: 2px;
+    }
+    .sidebar-link{
+      display: flex; align-items: center; gap: 10px;
+      padding: 14px 0;
+      text-decoration: none; position: relative; cursor: pointer;
+    }
+    .sidebar-link:hover{ text-decoration: none; }
+    .sidebar-dot{
+      width: 10px; height: 10px; border-radius: 50%;
+      background: rgba(255,255,255,0.10);
+      border: 1.5px solid rgba(139,92,246,0.35);
+      transition: all 0.3s ease;
+      position: relative; z-index: 2;
+    }
+    .sidebar-link:hover .sidebar-dot,
+    .sidebar-link.active .sidebar-dot{
+      background: linear-gradient(180deg, var(--accent), var(--accent2));
+      border-color: transparent;
+      box-shadow: 0 0 10px rgba(45,212,191,0.4);
+      transform: scale(1.3);
+    }
+    .sidebar-label{
+      position: absolute; right: 24px;
+      white-space: nowrap;
+      font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--muted2);
+      opacity: 0; transform: translateX(5px);
+      transition: all 0.2s ease;
+      pointer-events: none;
+      background: rgba(10,22,40,0.92);
+      backdrop-filter: blur(8px);
+      padding: 5px 10px; border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .sidebar-link:hover .sidebar-label{
+      opacity: 1; transform: translateX(0); color: var(--text);
+    }
+    @media (max-width: 960px){ .sidebar{ display: none; } }
   </style>
 </head>
 
 <body>
   <div class="bubbles" id="bubbles"></div>
 
-  <!-- ── sidebar nav ── -->
   <nav class="sidebar" id="sidebar">
     <div class="sidebar-track">
       <a class="sidebar-link" href="#projects">
@@ -571,139 +489,151 @@
     </div>
   </nav>
 
-  <div class="wrap">
-    <div class="splitLayout">
+  <div class="viewport">
 
-      <!-- ═══════ LEFT: sticky, full-height ═══════ -->
-      <div class="leftCol">
-        <div class="leftCard">
-          <div class="inner">
+    <!-- ═══════ LEFT ═══════ -->
+    <div class="leftPanel">
+      <div class="leftCard">
+        <div class="leftInner">
+          <div class="heroContent">
+            <h1 class="headline">hey, i'm patricia</h1>
+            <p class="subhead">statistics & cognitive science @ uchicago</p>
+            <p class="subhead--secondary">interested in the intersection of agentic ai and human decision-making elicitation and its application to the financial market</p>
 
-            <div class="heroContent">
-              <h1 class="headline">hey i'm patricia</h1>
-              <p class="subhead">statistics & cognitive science @ uchicago</p>
-              <p class="subhead subhead--secondary">interested in the intersection of agentic ai and human decision-making elicitation and its application to the financial market</p>
+            <div style="margin-top: 6px;">
+              <ul class="axisList">
+                <li class="axisItem">
+                  <details class="axisDetails">
+                    <summary class="axisSummary">
+                      <span class="axisLabel">quant trading</span>
+                      <span class="axisSub">
+                        incoming qt intern @ imc<br>
+                        incoming trading bootcamp @ peak6
+                      </span>
+                    </summary>
+                    <div class="axisPanel">
+                      <div class="axisPanelTitle">programs and discovery days</div>
+                      <div class="axisPanelText">• sig women discovery</div>
+                      <div class="axisPanelText">• imc math madness, women in trading & technology</div>
+                      <div class="axisPanelText">• two sigma new seekers</div>
+                      <div class="axisPanelText">• citadel fixed income & macro central bank challenge</div>
+                      <div class="axisPanelText">• ms future traders (equity derivatives)</div>
+                      <div class="axisPanelText">• traders@mit competition</div>
+                      <div class="axisPanelText">• uchicago trading competition</div>
+                    </div>
+                  </details>
+                </li>
 
-              <div class="axis">
-                <ul class="axisList">
-                  <li class="axisItem">
-                    <details class="axisDetails">
-                      <summary class="axisSummary">
-                        <span class="axisLabel">quant trading</span>
-                        <span class="axisSub">incoming qt intern @ imc; incoming trading bootcamp @ peak6</span>
-                      </summary>
-                      <div class="axisPanel">
-                        <div class="axisPanelTitle">programs and discovery days</div>
-                        <div class="axisPanelText">• sig women discovery</div>
-                        <div class="axisPanelText">• imc math madness, women in trading & technology</div>
-                        <div class="axisPanelText">• two sigma new seekers</div>
-                        <div class="axisPanelText">• citadel fixed income & macro central bank challenge</div>
-                        <div class="axisPanelText">• ms future traders (equity derivatives)</div>
-                        <div class="axisPanelText">• traders@mit competition</div>
-                        <div class="axisPanelText">• uchicago trading competition</div>
+                <li class="axisItem">
+                  <details class="axisDetails">
+                    <summary class="axisSummary">
+                      <span class="axisLabel">fundamentals & macro research</span>
+                      <span class="axisSub">prev @ mobius investments</span>
+                    </summary>
+                    <div class="axisPanel">
+                      <div class="axisPanelTitle">recognition</div>
+                      <div class="axisPanelText">• third place @ uchicago stock pitch competition on caesars entertainment</div>
+                      <div class="axisPanelText">• global top 100 @ bridgewater forecasting the future 2025</div>
+                      <div class="axisPanelText">• bridgewater x metaculus 2026</div>
+                    </div>
+                  </details>
+                </li>
+
+                <li class="axisItem">
+                  <details class="axisDetails">
+                    <summary class="axisSummary">
+                      <span class="axisLabel">activities & leadership</span>
+                      <span class="axisSub">
+                        current vp education @ the derivatives group<br>
+                        vp finance @ panhellenic
+                      </span>
+                    </summary>
+                    <div class="axisPanel">
+                      <div class="axisPanelTitle">previously</div>
+                      <div class="axisPanelText">• quant finance cohort leader @ the derivatives group</div>
+                      <div class="axisPanelText">• consultant @ campus catalyst</div>
+                      <div class="axisPanelText">• campus ambassador @ girls who invest</div>
+                      <div class="axisPanelText">• intramural & pickup volleyball</div>
+                    </div>
+                  </details>
+                </li>
+
+                <li class="axisItem">
+                  <details class="axisDetails">
+                    <summary class="axisSummary">
+                      <span class="axisLabel">research</span>
+                      <span class="axisSub">
+                        current @ <a href="https://sing.uchicago.edu/2026/01/06/2025-joint-task-force-initiative-seed-funding-round-awards/" target="_blank" rel="noreferrer">fermilab</a><br>
+                        current @ <a href="https://people.cs.uchicago.edu/~kalea/dcl-website/index.html" target="_blank" rel="noreferrer">data cognition lab</a>
+                      </span>
+                    </summary>
+                    <div class="axisPanel">
+                      <div class="axisPanelTitle">projects</div>
+                      <div class="axisPanelText">
+                        <span style="color:var(--accent);font-weight:500;">data cognition lab:</span>
+                        examines how uncertainty visualizations and financial headlines affect bias and sensitivity in risky asset choices, accounting for individual risk tolerance
                       </div>
-                    </details>
-                  </li>
-
-                  <li class="axisItem">
-                    <details class="axisDetails">
-                      <summary class="axisSummary">
-                        <span class="axisLabel">fundamentals & macro research</span>
-                        <span class="axisSub">prev @ mobius investments</span>
-                      </summary>
-                      <div class="axisPanel">
-                        <div class="axisPanelTitle">recognition</div>
-                        <div class="axisPanelText">• third place @ uchicago stock pitch competition on caesars entertainment</div>
-                        <div class="axisPanelText">• global top 100 @ bridgewater forecasting the future 2025</div>
-                        <div class="axisPanelText">• bridgewater x metaculus 2026</div>
+                      <div class="axisPanelText">
+                        <span style="color:var(--accent);font-weight:500;">fermilab:</span>
+                        develops a unified neural network–based adaptive control framework in accelerator resonance control and real-time neurostimulation to enable responsive control of physical and neural systems
                       </div>
-                    </details>
-                  </li>
-
-                  <li class="axisItem">
-                    <details class="axisDetails">
-                      <summary class="axisSummary">
-                        <span class="axisLabel">activities & leadership</span>
-                        <span class="axisSub">current vp education @ the derivatives group; vp finance @ panhellenic</span>
-                      </summary>
-                      <div class="axisPanel">
-                        <div class="axisPanelTitle">previously</div>
-                        <div class="axisPanelText">• quant finance cohort leader @ the derivatives group</div>
-                        <div class="axisPanelText">• consultant @ campus catalyst</div>
-                        <div class="axisPanelText">• campus ambassador @ girls who invest</div>
-                        <div class="axisPanelText">• intramural & pickup volleyball</div>
-                      </div>
-                    </details>
-                  </li>
-
-                  <li class="axisItem">
-                    <details class="axisDetails">
-                      <summary class="axisSummary">
-                        <span class="axisLabel">research</span>
-                        <span class="axisSub">current @ fermilab</span>
-                      </summary>
-                      <div class="axisPanel">
-                        <div class="axisPanelTitle">projects</div>
-                        <div class="axisPanelText">
-                          <span class="project-label">data cognition lab:</span>
-                          examines how uncertainty visualizations and financial headlines affect bias and sensitivity in risky asset choices, accounting for individual risk tolerance
-                        </div>
-                        <div class="axisPanelText">
-                          <span class="project-label">fermilab:</span>
-                          develops a unified neural network–based adaptive control framework in accelerator resonance control and real-time neurostimulation to enable responsive control of physical and neural systems
-                        </div>
-                      </div>
-                    </details>
-                  </li>
-                </ul>
-              </div>
+                    </div>
+                  </details>
+                </li>
+              </ul>
             </div>
+          </div>
+        </div>
 
-            <!-- connect pinned to bottom of left card -->
-            <div class="leftConnect">
-              <div class="connectKicker">CONNECT WITH ME</div>
-              <div class="socialRow">
-                <a class="socialLink" href="https://instagram.com/patriciayji" target="_blank" rel="noreferrer">
-                  <span class="socialDot"></span>
-                  <span style="color: var(--text);">instagram</span>
-                </a>
-                <a class="socialLink" href="https://www.linkedin.com/in/patriciayji" target="_blank" rel="noreferrer">
-                  <span class="socialDot"></span>
-                  <span style="color: var(--text);">linkedin</span>
-                </a>
-                <a class="socialLink" href="https://github.com/patriciayji27" target="_blank" rel="noreferrer">
-                  <span class="socialDot"></span>
-                  <span style="color: var(--text);">github</span>
-                </a>
-                <a class="socialLink" href="mailto:pyji@uchicago.edu">
-                  <span class="socialDot"></span>
-                  <span style="color: var(--text);">email</span>
-                </a>
-              </div>
-            </div>
-
+        <!-- connect pinned to bottom -->
+        <div class="leftConnect">
+          <div class="connectKicker">CONNECT WITH ME</div>
+          <div class="socialRow">
+            <a class="socialLink" href="https://instagram.com/patriciayji" target="_blank" rel="noreferrer">
+              <span class="socialDot"></span> instagram
+            </a>
+            <a class="socialLink" href="https://www.linkedin.com/in/patriciayji" target="_blank" rel="noreferrer">
+              <span class="socialDot"></span> linkedin
+            </a>
+            <a class="socialLink" href="https://github.com/patriciayji27" target="_blank" rel="noreferrer">
+              <span class="socialDot"></span> github
+            </a>
+            <a class="socialLink" href="mailto:pyji8017@gmail.com">
+              <span class="socialDot"></span> email
+            </a>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- ═══════ RIGHT: scrollable sections ═══════ -->
-      <div class="rightCol">
+    <!-- ═══════ RIGHT ═══════ -->
+    <div class="rightPanel">
+      <div class="rightInner">
 
-        <!-- 1. PROJECTS -->
+        <!-- PROJECTS -->
         <div class="card" id="projects">
           <div class="inner">
             <div class="sectionKicker">PROJECTS</div>
             <ul class="projectList">
-              <li class="projectItem"><a href="https://github.com/patriciayji27" target="_blank" rel="noreferrer">s&p 500 price prediction</a></li>
-              <li class="projectItem"><a href="https://github.com/patriciayji27" target="_blank" rel="noreferrer">multiple testing and modern inference</a></li>
-              <li class="projectItem"><a href="https://github.com/patriciayji27" target="_blank" rel="noreferrer">trading competitions</a></li>
-              <li class="projectItem"><a href="https://github.com/patriciayji27" target="_blank" rel="noreferrer">market regime identification</a></li>
-              <li class="projectItem"><a href="https://github.com/patriciayji27" target="_blank" rel="noreferrer">smart index</a></li>
+              <li class="projectItem">
+                <a class="projectName" href="https://patriciayji27.github.io/sp500_price_prediction/index.html" target="_blank" rel="noreferrer">s&p 500 price prediction</a>
+                <div class="projectDesc">multi-signal ensemble model combining technical, macro, and sentiment features for weekly directional forecasting</div>
+              </li>
+              <li class="projectItem">
+                <a class="projectName" href="https://github.com/patriciayji27" target="_blank" rel="noreferrer">multiple testing and modern inference</a>
+              </li>
+              <li class="projectItem">
+                <a class="projectName" href="https://github.com/patriciayji27" target="_blank" rel="noreferrer">trading competitions</a>
+              </li>
+              <li class="projectItem">
+                <a class="projectName" href="https://patriciayji27.github.io/smart_index/" target="_blank" rel="noreferrer">smart index</a>
+                <div class="projectDesc">dynamic factor-weighted index construction using momentum, quality, and volatility signals with periodic rebalancing</div>
+              </li>
             </ul>
           </div>
         </div>
 
-        <!-- 2. MISC -->
+        <!-- MISC -->
         <div class="card" id="misc">
           <div class="inner">
             <div class="sectionKicker">MISC</div>
@@ -713,7 +643,7 @@
           </div>
         </div>
 
-        <!-- 3. QUICK LINKS -->
+        <!-- QUICK LINKS -->
         <div class="card" id="quicklinks">
           <div class="inner">
             <div class="sectionKicker">QUICK LINKS</div>
@@ -728,55 +658,54 @@
           </div>
         </div>
 
+        <!-- FOOTER inline -->
+        <div class="footerInline">
+          <span>© <span id="y"></span> patricia ji</span>
+          <span>built on github pages, html, and (a sprinkle of) json</span>
+        </div>
+
       </div>
     </div>
 
-    <div class="footer">
-      <div>© <span id="y"></span> patricia ji</div>
-      <div>built on github pages, html, and (a sprinkle of) json</div>
-    </div>
   </div>
 
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
 
-    // ── accordion: only one details open at a time ──
-    document.querySelectorAll('.axisDetails').forEach(function(detail) {
-      detail.addEventListener('toggle', function() {
-        if (this.open) {
-          document.querySelectorAll('.axisDetails').forEach(function(other) {
-            if (other !== detail) {
-              other.removeAttribute('open');
-            }
+    // accordion
+    document.querySelectorAll('.axisDetails').forEach(function(d){
+      d.addEventListener('toggle', function(){
+        if(this.open){
+          document.querySelectorAll('.axisDetails').forEach(function(o){
+            if(o !== d) o.removeAttribute('open');
           });
         }
       });
     });
 
-    // ── quick link teal active state on click ──
+    // quick link active
     document.querySelectorAll('.quickLinkItem').forEach(function(item){
       item.addEventListener('click', function(){
-        document.querySelectorAll('.quickLinkItem').forEach(function(el){
-          el.classList.remove('ql-active');
-        });
+        document.querySelectorAll('.quickLinkItem').forEach(function(el){ el.classList.remove('ql-active'); });
         this.classList.add('ql-active');
       });
     });
 
-    // ── sidebar active state + smooth scroll ──
+    // sidebar scroll tracking on right panel
     (function(){
       var sections = ['projects','misc','quicklinks'];
       var links = document.querySelectorAll('.sidebar-link');
+      var rp = document.querySelector('.rightPanel');
 
       function update(){
-        var scrollY = window.scrollY + window.innerHeight * 0.35;
+        var scrollY = rp.scrollTop + rp.offsetHeight * 0.35;
         var active = null;
         sections.forEach(function(id, i){
           var el = document.getElementById(id);
-          if (el && el.offsetTop <= scrollY) active = i;
+          if(el && el.offsetTop - rp.offsetTop <= scrollY) active = i;
         });
         links.forEach(function(l, i){
-          if (i === active) l.classList.add('active');
+          if(i === active) l.classList.add('active');
           else l.classList.remove('active');
         });
       }
@@ -784,40 +713,37 @@
       links.forEach(function(link){
         link.addEventListener('click', function(e){
           e.preventDefault();
-          var target = document.querySelector(this.getAttribute('href'));
-          if (target){
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          var id = this.getAttribute('href').slice(1);
+          var el = document.getElementById(id);
+          if(el){
+            rp.scrollTo({ top: el.offsetTop - rp.offsetTop, behavior: 'smooth' });
           }
         });
       });
 
-      window.addEventListener('scroll', update, { passive: true });
+      rp.addEventListener('scroll', update, { passive: true });
       update();
     })();
 
-    // ── floating bubbles ──
+    // bubbles
     (function(){
-      var container = document.getElementById('bubbles');
-      var count = 12;
-      var palette = [
-        'rgba(45,212,191,0.06)',
-        'rgba(139,92,246,0.06)',
-        'rgba(45,212,191,0.04)',
-        'rgba(139,92,246,0.04)',
-        'rgba(93,160,220,0.05)'
+      var c = document.getElementById('bubbles');
+      var p = [
+        'rgba(45,212,191,0.05)','rgba(139,92,246,0.05)',
+        'rgba(45,212,191,0.03)','rgba(139,92,246,0.03)',
+        'rgba(93,160,220,0.04)'
       ];
-      for (var i = 0; i < count; i++) {
+      for(var i = 0; i < 10; i++){
         var el = document.createElement('div');
         el.className = 'bubble';
-        var size = 60 + Math.random() * 180;
-        el.style.width = size + 'px';
-        el.style.height = size + 'px';
-        el.style.left = Math.random() * 100 + '%';
-        el.style.background = palette[Math.floor(Math.random() * palette.length)];
-        var dur = 18 + Math.random() * 22;
-        el.style.animationDuration = dur + 's';
-        el.style.animationDelay = '-' + (Math.random() * dur) + 's';
-        container.appendChild(el);
+        var s = 80 + Math.random() * 160;
+        el.style.width = s+'px'; el.style.height = s+'px';
+        el.style.left = Math.random()*100+'%';
+        el.style.background = p[Math.floor(Math.random()*p.length)];
+        var d = 20 + Math.random()*20;
+        el.style.animationDuration = d+'s';
+        el.style.animationDelay = '-'+(Math.random()*d)+'s';
+        c.appendChild(el);
       }
     })();
   </script>
